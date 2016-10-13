@@ -1,0 +1,13 @@
+dist/
+.tmp/
+node_modules/
+/node/
+npm-debug.log
+/target/
+typings/
+coverage/
+.npmrc
+
+# OS metadata
+.DS_Store
+Thumbs.db
