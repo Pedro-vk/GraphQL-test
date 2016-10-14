@@ -71,7 +71,6 @@ rules:
   single-line-per-selector: 1
   space-after-bang: 1
   space-after-colon: 1
-  space-after-comm: 1
   space-around-operator: 1
   space-before-bang: 1
   space-before-brace: 1

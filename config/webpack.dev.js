@@ -8,7 +8,7 @@ module.exports = webpackMerge(commonConfig, {
 
   output: {
     path: helpers.root('dist'),
-    publicPath: 'http://localhost:8081/',
+    publicPath: 'http://localhost:8080/',
     filename: '[name].js',
     chunkFilename: '[id].chunk.js'
   },
@@ -25,12 +25,8 @@ module.exports = webpackMerge(commonConfig, {
 
   devServer: {
     historyApiFallback: true,
-    stats: 'minimal',
-    proxy: {
-      '/system*': {target: 'http://10.200.0.182/', secure: false},
-      '/marathon*': {target: 'http://10.200.0.182/', secure: false},
-      '/dcos-history-service*': {target: 'http://10.200.0.182/', secure: false},
-      '/package*': {target: 'http://10.200.0.182/', secure: false}
-    }
-  }
+    stats: 'minimal'
+  },
+
+  watch: true
 });
