@@ -1,61 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ApolloQueryResult } from 'apollo-client';
 import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
-import gql from 'graphql-tag';
-import { ClusterNode } from './shared/interfaces';
+import { ClusterNode, Status, StatusStatus } from './shared/interfaces';
+import { queries } from './shared/queries';
 import { Observable, Subject } from 'rxjs';
-
-const queryGetAllNodesWithStatus = gql`
-  query nodes {
-    nodes: allClusterNodes {
-      id
-      name
-      localIp
-      statuses {
-        status
-        service {
-          id
-          name
-        }
-      }
-    }
-  }
-`;
-
-const queryAddServiceToNode = gql`
-  mutation addServiceToNode($nodeId: ID!, $serviceId: ID!) {
-    createStatus(
-      status: STOPPED,
-      clusternodeId: $nodeId,
-      serviceId: $serviceId) {
-      id
-    }
-  }
-`;
 
 @Component({
   selector: 'app-graphql',
-  template: `
-    <h1>GraphQL - Test</h1>
-    <button (click)="addServices()">AddServices</button>
-
-    <br><br>
-
-    <div *ngFor="let node of clusterNodeSubscription | async; let i = index">
-      {{node.name}} ({{node.localIp}})
-
-      <div *ngFor="let status of node.statuses; let i = index">
-        [{{status.status}}] {{status.service.name}}
-
-        <span>
-
-        </span>
-
-      </div>
-
-      <br>
-    </div>
-  `
+  template: require('./app.html'),
+  styles: [require('./app.scss')]
 })
 export class AppComponent implements OnInit {
   private queryPolling: ApolloQueryObservable<ApolloQueryResult>;
@@ -65,8 +18,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.queryPolling = this.apollo.watchQuery({
-        query: queryGetAllNodesWithStatus,
-        pollInterval: 2000
+        query: queries.getAllNodes,
+        pollInterval: 10000
       });
 
     Observable
@@ -82,8 +35,23 @@ export class AppComponent implements OnInit {
       });
   }
 
-  toggleServiceStatus(): void {
+  toggleStatus(status: Status): void {
+    let newStatus: StatusStatus;
+    switch (status.status) {
+      case 'WAITING': return;
+      case 'STARTED': newStatus = 'STOPPED'; break;
+      case 'STOPPED': newStatus = 'STARTED'; break;
+    }
+    this.toggleStatusMutation(status.id, newStatus);
+  }
 
+  toggleStatusMutation(statusId: String, status: String): void {
+    this.apollo.mutate({
+      mutation: queries.updateStatus,
+      variables: queries.updateStatus.variables(statusId, status)
+    }).then(({ data }: ApolloQueryResult) => {
+      console.log('got data', data);
+    })
   }
 
   addServices(): void {
@@ -100,11 +68,8 @@ export class AppComponent implements OnInit {
 
   addServiceMutation(nodeId: String, serviceId: String): void {
     this.apollo.mutate({
-      mutation: queryAddServiceToNode,
-      variables: {
-        nodeId,
-        serviceId
-      }
+      mutation: queries.createStatus,
+      variables: queries.createStatus.variables(nodeId, serviceId)
     }).then(({ data }: ApolloQueryResult) => {
       console.log('got data', data);
     })
