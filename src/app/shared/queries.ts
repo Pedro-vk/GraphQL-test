@@ -7,6 +7,8 @@ const getAllNodes = gql`
       id
       name
       localIp
+      cores
+      memory
       statuses {
         id
         status
@@ -17,6 +19,10 @@ const getAllNodes = gql`
           id
           name
         }
+      }
+      tags {
+        id
+        name
       }
     }
   }

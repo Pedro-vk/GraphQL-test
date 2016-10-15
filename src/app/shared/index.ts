@@ -2,7 +2,8 @@ export {
   GraphCoolObject,
   ClusterNode,
   Service,
-  Status, StatusStatus
+  Status, StatusStatus,
+  Tag
 } from './interfaces'
 
 import * as Interfaces from './interfaces';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApolloQueryResult } from 'apollo-client';
 import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
-import { ClusterNode, Status, StatusStatus } from './shared/interfaces';
+import { ClusterNode, Status, StatusStatus, Tag } from './shared/interfaces';
 import { queries } from './shared/queries';
 import { Observable, Subject } from 'rxjs';
 
@@ -17,6 +17,11 @@ export class AppComponent implements OnInit {
   constructor(private apollo: Angular2Apollo) {}
 
   ngOnInit(): void {
+    this.initPolling();
+    this.initCountReducer();
+  }
+
+  private initPolling(): void {
     this.queryPolling = this.apollo.watchQuery({
         query: queries.getAllNodes,
         pollInterval: 10000
@@ -27,12 +32,27 @@ export class AppComponent implements OnInit {
       .subscribe((_: ApolloQueryResult) => {
         this.clusterNodeSubscription.next(_.data.nodes);
       });
+  }
 
+  private initCountReducer(): void {
     this.clusterNodeSubscription
-      .subscribe((nodes) => {
-        // this.nodes = nodes;
-        console.log(nodes);
-      });
+      .map((nodes: ClusterNode[]): any => {
+        return nodes
+          .reduce((acc: any, node: ClusterNode) => {
+            acc.cores[node.cores] = (acc.cores[node.cores] || 0) + 1;
+            acc.memory[node.memory] = (acc.memory[node.memory] || 0) + 1;
+            node.tags
+              .forEach((tag: Tag) => {
+                acc.tags[tag.name] = (acc.tags[tag.name] || 0) + 1;
+              })
+            return acc;
+          }, {
+            cores: {},
+            memory: {},
+            tags: {},
+          });
+      })
+      .subscribe((_: any) => console.log(_));
   }
 
   toggleStatus(status: Status): void {
@@ -42,16 +62,15 @@ export class AppComponent implements OnInit {
       case 'STARTED': newStatus = 'STOPPED'; break;
       case 'STOPPED': newStatus = 'STARTED'; break;
     }
-    this.toggleStatusMutation(status.id, newStatus);
+    this.toggleStatusMutation(status.id, 'WAITING');
+    setTimeout(() => this.toggleStatusMutation(status.id, newStatus), 500 + 3000 * Math.random());
   }
 
-  toggleStatusMutation(statusId: String, status: String): void {
+  toggleStatusMutation(statusId: String, status: StatusStatus): void {
     this.apollo.mutate({
       mutation: queries.updateStatus,
       variables: queries.updateStatus.variables(statusId, status)
-    }).then(({ data }: ApolloQueryResult) => {
-      console.log('got data', data);
-    })
+    });
   }
 
   addServices(): void {
