@@ -1,5 +1,5 @@
 export interface GraphCoolObject {
-  id: String;
-  createdAt: String;
-  updatedAt: String;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
 }

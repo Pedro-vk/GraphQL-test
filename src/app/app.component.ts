@@ -3,6 +3,7 @@ import { ApolloQueryResult } from 'apollo-client';
 import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
 import { ClusterNode, Status, StatusStatus, Tag } from './shared/interfaces';
 import { queries } from './shared/queries';
+import { AttributeCounter } from './shared';
 import { Observable, Subject } from 'rxjs';
 
 @Component({
@@ -13,6 +14,7 @@ import { Observable, Subject } from 'rxjs';
 export class AppComponent implements OnInit {
   private queryPolling: ApolloQueryObservable<ApolloQueryResult>;
   private clusterNodeSubscription: Subject<ClusterNode[]> = new Subject<ClusterNode[]>();
+  private attributeCounter: Observable<any>;
 
   constructor(private apollo: Angular2Apollo) {}
 
@@ -35,24 +37,11 @@ export class AppComponent implements OnInit {
   }
 
   private initCountReducer(): void {
-    this.clusterNodeSubscription
-      .map((nodes: ClusterNode[]): any => {
-        return nodes
-          .reduce((acc: any, node: ClusterNode) => {
-            acc.cores[node.cores] = (acc.cores[node.cores] || 0) + 1;
-            acc.memory[node.memory] = (acc.memory[node.memory] || 0) + 1;
-            node.tags
-              .forEach((tag: Tag) => {
-                acc.tags[tag.name] = (acc.tags[tag.name] || 0) + 1;
-              })
-            return acc;
-          }, {
-            cores: {},
-            memory: {},
-            tags: {},
-          });
-      })
-      .subscribe((_: any) => console.log(_));
+    this.attributeCounter = new AttributeCounter<ClusterNode>(["cores", "memory"], ["tags"])
+      .counterFrom(this.clusterNodeSubscription);
+
+    this.attributeCounter
+      .subscribe((_: any) => console.log(111121, _));
   }
 
   toggleStatus(status: Status): void {
@@ -66,7 +55,7 @@ export class AppComponent implements OnInit {
     setTimeout(() => this.toggleStatusMutation(status.id, newStatus), 500 + 3000 * Math.random());
   }
 
-  toggleStatusMutation(statusId: String, status: StatusStatus): void {
+  toggleStatusMutation(statusId: string, status: StatusStatus): void {
     this.apollo.mutate({
       mutation: queries.updateStatus,
       variables: queries.updateStatus.variables(statusId, status)
@@ -85,7 +74,7 @@ export class AppComponent implements OnInit {
     //   .forEach(_ => this.addServiceMutation(_.id, 'ciu5pgrji01al0150aldsza8p'));
   }
 
-  addServiceMutation(nodeId: String, serviceId: String): void {
+  addServiceMutation(nodeId: string, serviceId: string): void {
     this.apollo.mutate({
       mutation: queries.createStatus,
       variables: queries.createStatus.variables(nodeId, serviceId)

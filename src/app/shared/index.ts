@@ -9,3 +9,5 @@ export {
 import * as Interfaces from './interfaces';
 
 export const interfaces = Interfaces;
+
+export { AttributeCounter } from './attribute-counter';
