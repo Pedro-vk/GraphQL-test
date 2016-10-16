@@ -1,35 +1,39 @@
 import { Observable } from 'rxjs';
 
 export class AttributeCounter<T> {
-  private attributes: String[];
-  private arrayAttributes: String[];
+  private attributes: string[];
+  private arrayAttributes: string[];
   private counterObject: any = {};
 
-  constructor (attributes: String[] = [], arrayAttributes: String[] = []) {
+  // TODO add a special type for add custom counters (for example: nodes with services)
+  // Add node status? (up/down)
+  constructor (attributes: string[] = [], arrayAttributes: string[] = []) {
     this.attributes = attributes;
     this.arrayAttributes = arrayAttributes;
+
+    let attrs = [].concat(attributes).concat(arrayAttributes);
+    attrs.forEach((_: string) => this.counterObject[_] = {});
+    Object.freeze(this.counterObject);
   }
 
   counterFrom(observable: Observable<T[]>): Observable<any> {
+    let counterObjectCopy = Object.assign({}, this.counterObject);
+
     return observable
       .map((list: T[]): any => {
         return list
           .reduce((acc: any, item: T) => {
             this.attributes
-              .forEach((attr: String) => acc[attr.toString()][item[attr.toString()]] = (acc[attr.toString()][item[attr.toString()]] || 0) + 1);
+              .forEach((attr: string) => acc[attr][item[attr]] = (acc[attr][item[attr]] || 0) + 1);
             this.arrayAttributes
-              .forEach((attr: String) => {
-                item[attr.toString()]
+              .forEach((attr: string) => {
+                item[attr]
                   .forEach((items: any) => {
-                    acc[attr.toString()][items.name] = (acc[attr.toString()][items.name] || 0) + 1;
+                    acc[attr][items.name] = (acc[attr][items.name] || 0) + 1;
                   });
               });
             return acc;
-          }, {
-            cores: {},
-            memory: {},
-            tags: {},
-          });
-      })
+          }, counterObjectCopy);
+      });
   }
 }

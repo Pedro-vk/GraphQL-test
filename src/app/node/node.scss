@@ -1,0 +1,117 @@
+@import '../../style/index';
+
+$tags-palette: (
+  #0075e2,
+  #06acf1,
+  #0ce3ff,
+  #51f0e8,
+  #95fed0,
+  #bbee9e,
+  #e0de6d,
+  #f0c17f,
+  #ffa391,
+  #e78166,
+  #cf5f3b,
+);
+
+$services-palette: (
+  STARTED: #88b060,
+  WAITING: #ff8900,
+  STOPPED: #e23b2b,
+);
+
+@mixin node() {
+  display: inline-block;
+  vertical-align: top;
+  width: 280px;
+  font-size: 14px;
+  margin: 10px;
+  height: 120px;
+  border: 1px solid get-color(n3);
+  border-radius: 3px;
+  box-shadow: 0 2px 4px get-color(n3);
+  font-family: monospace;
+  color: get-color(n8);
+
+  .header {
+    border-bottom: 1px solid get-color(n2);
+    padding: 6px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .ip {
+      font-size: 12px;
+      color: get-color(n6);
+    }
+  }
+
+  .details {
+    padding: 6px 10px;
+    font-size: 0;
+
+    .detail {
+      font-size: 12px;
+      padding-right: 4px;
+      margin-right: 4px;
+      color: get-color(n6);
+      border-right: 1px solid get-color(n3);
+
+      &:last-child {
+        border-right: 0;
+      }
+
+      .value {
+        color: get-color(n8);
+      }
+    }
+  }
+
+  .tags .tag,
+  .services .service {
+    $letter-shaddow: rgba(get-color(n10), .08);
+
+    display: inline-block;
+    margin: 4px;
+    padding: 2px 4px;
+    font-size: 12px;
+    border-radius: 4px;
+    text-shadow: 0 -1px 1px $letter-shaddow;
+  }
+
+  .tags {
+    border-top: 1px solid get-color(n2);
+    padding: 2px 8px;
+    color: get-color(n0);
+
+    @for $i from 0 through 10 {
+      .tag-#{$i} {
+        background: nth($tags-palette, ($i + 1));
+      }
+    }
+  }
+
+  .services {
+    border-top: 1px solid get-color(n2);
+    padding: 2px 8px;
+    color: get-color(n0);
+
+    .service {
+      cursor: pointer;
+    }
+
+    @each $status, $color in $services-palette {
+      .service-#{$status} {
+        background: $color;
+      }
+    }
+  }
+}
+
+:host {
+  @include node();
+}

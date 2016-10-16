@@ -23,6 +23,7 @@ const getAllNodes = gql`
       tags {
         id
         name
+        colornumber
       }
     }
   }

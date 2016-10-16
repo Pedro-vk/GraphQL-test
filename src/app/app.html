@@ -1,25 +1,3 @@
 <h1>GraphQL - Test</h1>
 
-<br><br><br>
-
-<div *ngFor="let node of clusterNodeSubscription | async; let i = index">
-  {{node.name}} ({{node.localIp}})
-  <sup>
-    {{node.cores}}<sup>Cores</sup>
-    {{node.memory}}<sup>Memory</sup>
-  </sup>
-  <code *ngFor="let tag of node.tags; let i = index">
-    /{{tag.name}}
-  </code>
-  <div *ngFor="let status of node.statuses; let i = index">
-    [{{status.status}}] {{status.service.name}}
-
-    (
-    <span *ngIf="status.status === 'STARTED'" (click)="toggleStatus(status)">stop</span>
-    <span *ngIf="status.status === 'STOPPED'" (click)="toggleStatus(status)">start</span>
-    <span *ngIf="status.status === 'WAITING'">waiting...</span>
-    )
-  </div>
-
-  <br>
-</div>
+<Node [details]="node" *ngFor="let node of clusterNodeSubscription | async; let i = index"></Node>

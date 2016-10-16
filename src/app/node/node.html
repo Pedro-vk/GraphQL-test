@@ -1,0 +1,26 @@
+<header class="header">
+  <span class="title">{{details.name}}</span>
+  <span class="ip">{{details.localIp}}</span>
+</header>
+<div class="details">
+  <span class="detail"><span class="value">{{details.cores}}</span> cores</span>
+  <span class="detail"><span class="value">{{details.memory}}gb</span> memory</span>
+  <span class="detail"><span class="value">{{details.statuses.length}}</span> services</span>
+</div>
+<div class="tags">
+  <div
+    class="tag tag-{{tag.colornumber}}"
+    *ngFor="let tag of details.tags; let i = index">
+
+    {{tag.name}}
+  </div>
+</div>
+<div class="services">
+  <div
+    (click)="toggleStatus(status)"
+    class="service service-{{status.status}}"
+    *ngFor="let status of details.statuses; let i = index">
+
+    {{status.service.name}}
+  </div>
+</div>

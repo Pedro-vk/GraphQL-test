@@ -1,0 +1,33 @@
+$colors: (
+  n0: #ffffff,
+  n1: #fbfbfb,
+  n2: #f3f3f3,
+  n3: #e4e4e4,
+  n4: #cbcbcb,
+  n5: #b5b5b5,
+  n6: #999999,
+  n7: #777777,
+  n8: #555555,
+  n9: #242424,
+  n10: #000000
+) !default;
+
+@function get-color($color) {
+  $result: #000000;
+
+  @if global-variable-exists(colors) {
+    @if type-of($colors) == 'map' {
+      @if map-has-key($colors, $color) {
+        $result: map-get($colors, $color);
+      } @else {
+        @warn('@get-color::The color #{$color} not exist in $colors.');
+      }
+    } @else {
+      @warn('@get-color::The $colors variable is not a Sass map.');
+    }
+  } @else {
+    @warn('@get-color::The Sass map $colors is not defined.');
+  }
+
+  @return $result;
+}
