@@ -33,8 +33,9 @@ body {
     height: $dashboard__header---height;
     line-height: $dashboard__header---height;
     font-size: 32px;
-    font-weight: normal;
+    font-weight: 300;
     padding: 0 20px;
+    color: get-color(n8);
     background: get-color(n1);
     border-bottom: 1px solid get-color(n2);
     margin: 0;

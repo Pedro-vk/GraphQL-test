@@ -3,6 +3,10 @@
 
   <Sidebar
     class="dashboard__sidebar"
+    [dictionary]="{
+      'cores': ' threads',
+      'memory': 'gb'
+    }"
     [filters]="attributeCounter | async"
     (appliedFiltersChange)="attributeFilter.next($event)">
   </Sidebar>

@@ -1,4 +1,6 @@
-
+<div class="title">
+  Filter
+</div>
 <div *ngFor="let filter of filters | keys; let i = index">
   <div class="filter">
     {{filter.key}}
@@ -8,17 +10,21 @@
       class="attribute"
       *ngFor="let attr of filter.value | keys | orderByOnSidebar : 'key'; let i = index">
 
-      <input
-        type="checkbox"
-        [ngModel]="appliedFilters[filter.key][attr.key]"
-        (ngModelChange)="appliedFilters[filter.key][attr.key] = $event; onChangeFilter()">
+      <label class="checkbox">
+        <input
+          class="checkbox-input"
+          type="checkbox"
+          [ngModel]="appliedFilters[filter.key][attr.key]"
+          (ngModelChange)="appliedFilters[filter.key][attr.key] = $event; onChangeFilter()">
+        <span class="checkbox-element"></span>
 
-      <span class="number">
-        {{attr.value}}
-      </span>
-      <span class="label">
-        {{attr.key}}
-      </span>
+        <span class="number">
+          {{attr.value}}
+        </span>
+        <span class="label">
+          {{attr.key}}{{dictionary[filter.key]}}
+        </span>
+      </label>
     </div>
   </div>
 </div>
