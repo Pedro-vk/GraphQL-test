@@ -1,24 +1,19 @@
 import { Observable } from 'rxjs';
 
 export class AttributeCounter<T> {
+  private attrs: string[] = [];
   private attributes: string[];
   private arrayAttributes: string[];
-  private counterObject: any = {};
 
   // TODO add a special type for add custom counters (for example: nodes with services)
   // Add node status? (up/down)
   constructor (attributes: string[] = [], arrayAttributes: string[] = []) {
     this.attributes = attributes;
     this.arrayAttributes = arrayAttributes;
-
-    let attrs = [].concat(attributes).concat(arrayAttributes);
-    attrs.forEach((_: string) => this.counterObject[_] = {});
-    Object.freeze(this.counterObject);
+    this.attrs = [].concat(this.attributes).concat(this.arrayAttributes);
   }
 
   counterFrom(observable: Observable<T[]>): Observable<any> {
-    let counterObjectCopy = Object.assign({}, this.counterObject);
-
     return observable
       .map((list: T[]): any => {
         return list
@@ -33,7 +28,13 @@ export class AttributeCounter<T> {
                   });
               });
             return acc;
-          }, counterObjectCopy);
+          }, this.getNewCounterObject());
       });
+  }
+
+  private getNewCounterObject(): any {
+    const counterObject = {};
+    this.attrs.map((_: string) => counterObject[_] = {});
+    return counterObject;
   }
 }

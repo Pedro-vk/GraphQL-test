@@ -12,8 +12,10 @@ import { Observable, Subject } from 'rxjs';
   styles: [require('./app.scss')]
 })
 export class AppComponent implements OnInit {
+  attributeFilter: Subject<any> = new Subject<any>();
   private queryPolling: ApolloQueryObservable<ApolloQueryResult>;
   private clusterNodeSubscription: Subject<ClusterNode[]> = new Subject<ClusterNode[]>();
+  private clusterNodeFilteredSubscription: Observable<ClusterNode[]>;
   private attributeCounter: Observable<any>;
 
   constructor(private apollo: Angular2Apollo) {}
@@ -33,13 +35,65 @@ export class AppComponent implements OnInit {
       .subscribe((_: ApolloQueryResult) => {
         this.clusterNodeSubscription.next(_.data.nodes);
       });
+
+    this.clusterNodeFilteredSubscription =
+      this.clusterNodeSubscription
+        .combineLatest<any, ClusterNode[]>(this.attributeFilter, this.filterNodesWithAttributes);
+  }
+
+  private filterNodesWithAttributes(nodes: ClusterNode[], filter: any): ClusterNode[] {
+    if (Object.keys(filter).length === 0) {
+      return nodes;
+    }
+    return nodes
+      .filter(simpleAttributeFilter('cores'))
+      .filter(simpleAttributeFilter('memory'))
+      .filter(arrayAttributeFilter('tags', (_: Tag) => _.name));
+
+    function simpleAttributeFilter(attr: string) {
+      return (item: any): boolean => {
+        if (filter[attr] && (<any>Object).values(filter[attr]).indexOf(true) === -1) {
+          return true;
+        }
+        return filter[attr][item[attr]];
+      }
+    }
+    function arrayAttributeFilter(attr: string, filterFn: (_: any) => string) {
+      return (item: any): boolean => {
+        if (filter[attr] && (<any>Object).values(filter[attr]).indexOf(true) === -1) {
+          return true;
+        }
+        let itemElements = item[attr].map(filterFn);
+        let filterElements = Object.keys(filter[attr])
+          .filter((_: any) => filter[attr][_]);
+
+        return filterElements
+          .map((_: string) => itemElements.indexOf(_) !== -1)
+          .indexOf(true) !== -1;
+      }
+    }
   }
 
   private initCountReducer(): void {
-    this.attributeCounter = new AttributeCounter<ClusterNode>(["cores", "memory"], ["tags"])
+    const attributeCounter = new AttributeCounter<ClusterNode>(["cores", "memory"], ["tags"])
       .counterFrom(this.clusterNodeSubscription);
+    const attributeCounterFiltered = new AttributeCounter<ClusterNode>(["cores", "memory"], ["tags"])
+      .counterFrom(this.clusterNodeFilteredSubscription);
 
-    this.attributeCounter
-      .subscribe((_: any) => console.log(111121, _));
+    this.attributeCounter =
+      attributeCounter
+        .combineLatest(attributeCounterFiltered, combineCounters);
+
+    function combineCounters(counterComplete: any, counterFiltered: any) {
+      let counterCompleteCopy = JSON.parse(JSON.stringify(counterComplete));
+      Object.keys(counterCompleteCopy)
+        .forEach((key: string) => {
+          Object.keys(counterCompleteCopy[key])
+            .forEach((attr: string) => {
+              counterCompleteCopy[key][attr] = counterFiltered[key][attr] || 0;
+            });
+        });
+      return counterCompleteCopy;
+    }
   }
 }

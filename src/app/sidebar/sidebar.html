@@ -1,0 +1,24 @@
+
+<div *ngFor="let filter of filters | keys; let i = index">
+  <div class="filter">
+  {{filter.key}}
+  </div>
+  <div class="attributes">
+    <div
+      class="attribute"
+      *ngFor="let attr of filter.value | keys; let i = index">
+
+      <input
+        type="checkbox"
+        [ngModel]="appliedFilters[filter.key][attr.key]"
+        (ngModelChange)="appliedFilters[filter.key][attr.key] = $event; onChangeFilter()">
+
+      <span class="number">
+        {{attr.value}}
+      </span>
+      <span class="label">
+        {{attr.key}}
+      </span>
+    </div>
+  </div>
+</div>
