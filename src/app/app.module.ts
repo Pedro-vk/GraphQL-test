@@ -4,7 +4,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent }  from './app.component';
-import { NodeComponent } from './node';
+import { appComponents } from './';
 import { GraphCoolObject }  from './shared';
 
 const client = new ApolloClient({
@@ -19,7 +19,7 @@ const client = new ApolloClient({
   ],
   declarations: [
     AppComponent,
-    NodeComponent
+    ...appComponents
   ],
   bootstrap: [ AppComponent ]
 })

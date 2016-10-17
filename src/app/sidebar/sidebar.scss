@@ -1,0 +1,9 @@
+@import '../../style/index';
+
+@mixin sidebar() {
+
+}
+
+:host {
+  @include sidebar();
+}

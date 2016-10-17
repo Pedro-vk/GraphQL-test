@@ -4,7 +4,6 @@ $tags-palette: (
   #0075e2,
   #06acf1,
   #0ce3ff,
-  #51f0e8,
   #95fed0,
   #bbee9e,
   #e0de6d,
@@ -88,7 +87,7 @@ $services-palette: (
     padding: 2px 8px;
     color: get-color(n0);
 
-    @for $i from 0 through 10 {
+    @for $i from 0 through (length($tags-palette) - 1) {
       .tag-#{$i} {
         background: nth($tags-palette, ($i + 1));
       }

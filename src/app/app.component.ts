@@ -8,7 +8,6 @@ import { Observable, Subject } from 'rxjs';
 @Component({
   selector: 'app-graphql',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
   template: require('./app.html'),
   styles: [require('./app.scss')]
 })
