@@ -1,6 +1,57 @@
+@import '../style/index';
+
+@include reset();
+
+$dashboard__header---height: 72px;
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  @include font-family;
+
   display: block;
   margin: 0;
   padding: 0;
+}
+
+
+.dashboard {
+  position: fixed;
+  top: $dashboard__header---height;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  background: get-color(n0);
+
+  &__heading {
+
+    @include font-family;
+
+    position: absolute;
+    top: -$dashboard__header---height;
+    width: 100%;
+    height: $dashboard__header---height;
+    line-height: $dashboard__header---height;
+    font-size: 32px;
+    font-weight: normal;
+    padding: 0 20px;
+    background: get-color(n1);
+    border-bottom: 1px solid get-color(n2);
+    margin: 0;
+  }
+
+  &__sidebar {
+    height: 100%;
+    width: 200px;
+    padding: 20px;
+    background: get-color(n1);
+    border-right: 1px solid get-color(n2);
+  }
+
+  &__content {
+    flex: 1;
+    padding: 10px;
+    overflow: auto;
+    height: 100%;
+  }
 }

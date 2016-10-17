@@ -1,12 +1,13 @@
-<h1>GraphQL - Test</h1>
+<div class="dashboard">
+  <h1 class="dashboard__heading">GraphQL - Test</h1>
 
-<Sidebar
-  [filters]="attributeCounter | async"
-  (appliedFiltersChange)="attributeFilter.next($event)">
-</Sidebar>
+  <Sidebar
+    class="dashboard__sidebar"
+    [filters]="attributeCounter | async"
+    (appliedFiltersChange)="attributeFilter.next($event)">
+  </Sidebar>
 
-<br>
----------------
-<br>
-
-<Node [details]="node" *ngFor="let node of clusterNodeFilteredSubscription | async; let i = index"></Node>
+  <div class="dashboard__content">
+    <Node [details]="node" *ngFor="let node of clusterNodeFilteredSubscription | async; let i = index"></Node>
+  </div>
+</div>

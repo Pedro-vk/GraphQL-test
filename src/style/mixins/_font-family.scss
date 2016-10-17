@@ -1,0 +1,8 @@
+@mixin font-family($type: text) {
+  @if ($type == text) {
+    font-family: 'Roboto', sans-serif;
+  }
+  @if ($type == monospace) {
+    font-family: monospace, 'Cutive Mono';
+  }
+}

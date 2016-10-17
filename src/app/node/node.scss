@@ -20,16 +20,16 @@ $services-palette: (
 );
 
 @mixin node() {
+  @include font-family(monospace);
+
   display: inline-block;
   vertical-align: top;
   width: 280px;
   font-size: 14px;
   margin: 10px;
-  height: 120px;
   border: 1px solid get-color(n3);
   border-radius: 3px;
   box-shadow: 0 2px 4px get-color(n3);
-  font-family: monospace;
   color: get-color(n8);
 
   .header {
