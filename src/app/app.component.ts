@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
 
     function simpleAttributeFilter(attr: string) {
       return (item: any): boolean => {
-        if (filter[attr] && (<any>Object).values(filter[attr]).indexOf(true) === -1) {
+        if (filter[attr] && getValues(filter[attr]).indexOf(true) === -1) {
           return true;
         }
         return filter[attr][item[attr]];
@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
     }
     function arrayAttributeFilter(attr: string, filterFn: (_: any) => string) {
       return (item: any): boolean => {
-        if (filter[attr] && (<any>Object).values(filter[attr]).indexOf(true) === -1) {
+        if (filter[attr] && getValues(filter[attr]).indexOf(true) === -1) {
           return true;
         }
         let itemElements = item[attr].map(filterFn);
@@ -71,6 +71,11 @@ export class AppComponent implements OnInit {
           .map((_: string) => itemElements.indexOf(_) !== -1)
           .indexOf(true) !== -1;
       }
+    }
+    function getValues(_: any): any[] {
+      return Object.keys(_).map(function(key) {
+        return _[key];
+      });
     }
   }
 
