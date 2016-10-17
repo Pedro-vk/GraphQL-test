@@ -1,12 +1,12 @@
 
 <div *ngFor="let filter of filters | keys; let i = index">
   <div class="filter">
-  {{filter.key}}
+    {{filter.key}}
   </div>
   <div class="attributes">
     <div
       class="attribute"
-      *ngFor="let attr of filter.value | keys; let i = index">
+      *ngFor="let attr of filter.value | keys | orderByOnSidebar : 'key'; let i = index">
 
       <input
         type="checkbox"
