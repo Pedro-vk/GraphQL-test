@@ -8,6 +8,7 @@ import { Angular2Apollo } from 'angular2-apollo';
   styles: [require('./sidebar.scss')]
 })
 export class SidebarComponent implements AfterViewInit {
+  @Input() filterClassFn: () => string;
   @Input() dictionary: any = {};
   @Output() appliedFiltersChange = new EventEmitter<any>();
   appliedFilters: any = {};

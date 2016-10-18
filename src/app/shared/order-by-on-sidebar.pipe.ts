@@ -17,6 +17,7 @@ export class OrderByOnSidebarPipe implements PipeTransform {
         return key;
       }
       return key
+        .replace('size', '_size')
         .replace('-s', '-2')
         .replace('-m', '-3')
         .replace('-l', '-4');

@@ -9,6 +9,7 @@ const getAllNodes = gql`
       localIp
       cores
       memory
+      location
       statuses {
         id
         status
@@ -25,6 +26,16 @@ const getAllNodes = gql`
         name
         colornumber
       }
+    }
+  }
+`;
+
+const getAllTags = gql`
+  query getAllTags {
+    tags: allTags {
+      id
+      colornumber
+      name
     }
   }
 `;
@@ -57,6 +68,7 @@ updateStatus.variables = (statusId: String, status: String): any => ({statusId, 
 
 export const queries = {
   getAllNodes,
+  getAllTags,
   createStatus,
   updateStatus,
 }

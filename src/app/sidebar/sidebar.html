@@ -21,7 +21,7 @@
         <span class="number">
           {{attr.value}}
         </span>
-        <span class="label">
+        <span class="label {{filterClassFn(filter.key, attr.key)}}">
           {{attr.key}}{{dictionary[filter.key]}}
         </span>
       </label>

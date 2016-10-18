@@ -8,6 +8,7 @@ export interface ClusterNode extends GraphCoolObject {
   memory: number;
   localIp: string;
   publicIp: string;
+  location: string;
   statuses: Status[];
   tags: Tag[];
 }

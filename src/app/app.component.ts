@@ -13,6 +13,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   attributeFilter: Subject<any> = new Subject<any>();
+  private tags: { [tag: string]: Tag; } = {};
   private queryPolling: ApolloQueryObservable<ApolloQueryResult>;
   private clusterNodeSubscription: Subject<ClusterNode[]> = new Subject<ClusterNode[]>();
   private clusterNodeFilteredSubscription: Observable<ClusterNode[]>;
@@ -21,8 +22,32 @@ export class AppComponent implements OnInit {
   constructor(private apollo: Angular2Apollo) {}
 
   ngOnInit(): void {
+    this.getAllTags();
     this.initPolling();
     this.initCountReducer();
+  }
+
+  sidebarFilterClass() {
+    let self = this;
+    return (filter: string, attribute: string) => {
+      if (filter === 'tags' && self.tags && self.tags[attribute]) {
+        return `filter-tags filter-tags-${self.tags[attribute].colornumber}`;
+      }
+    };
+  }
+
+  private getAllTags(): void {
+    this.apollo
+      .watchQuery({
+        query: queries.getAllTags
+      })
+      .subscribe((response: any) => {
+        let tags = response.data.tags;
+        tags
+          .forEach((tag: Tag) => {
+            this.tags[tag.name] = tag;
+          });
+      })
   }
 
   private initPolling(): void {
@@ -48,6 +73,7 @@ export class AppComponent implements OnInit {
     return nodes
       .filter(simpleAttributeFilter('cores'))
       .filter(simpleAttributeFilter('memory'))
+      .filter(simpleAttributeFilter('location'))
       .filter(arrayAttributeFilter('tags', (_: Tag) => _.name));
 
     function simpleAttributeFilter(attr: string) {
@@ -80,9 +106,12 @@ export class AppComponent implements OnInit {
   }
 
   private initCountReducer(): void {
-    const attributeCounter = new AttributeCounter<ClusterNode>(["cores", "memory"], ["tags"])
+    const simple = ['cores', 'memory', 'location'];
+    const array = ['tags'];
+
+    const attributeCounter = new AttributeCounter<ClusterNode>(simple, array)
       .counterFrom(this.clusterNodeSubscription);
-    const attributeCounterFiltered = new AttributeCounter<ClusterNode>(["cores", "memory"], ["tags"])
+    const attributeCounterFiltered = new AttributeCounter<ClusterNode>(simple, array)
       .counterFrom(this.clusterNodeFilteredSubscription);
 
     this.attributeCounter =

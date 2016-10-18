@@ -3,6 +3,7 @@
 
   <Sidebar
     class="dashboard__sidebar"
+    [filterClassFn]="sidebarFilterClass()"
     [dictionary]="{
       'cores': ' threads',
       'memory': 'gb'
