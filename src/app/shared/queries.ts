@@ -40,6 +40,15 @@ const getAllTags = gql`
   }
 `;
 
+const getAllStatus = gql`
+  query getAllStatus {
+    status: allStatuses {
+      id
+      status
+    }
+  }
+`;
+
 const createStatus = gql`
   mutation createStatus($nodeId: ID!, $serviceId: ID!) {
     createStatus(
@@ -69,6 +78,7 @@ updateStatus.variables = (statusId: String, status: String): any => ({statusId, 
 export const queries = {
   getAllNodes,
   getAllTags,
+  getAllStatus,
   createStatus,
   updateStatus,
 }

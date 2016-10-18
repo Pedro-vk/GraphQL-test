@@ -23,7 +23,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllTags();
-    this.initPolling();
+    this.initNodesPolling();
+    this.initStatusPolling();
     this.initCountReducer();
   }
 
@@ -38,10 +39,10 @@ export class AppComponent implements OnInit {
 
   private getAllTags(): void {
     this.apollo
-      .watchQuery({
+      .query({
         query: queries.getAllTags
       })
-      .subscribe((response: any) => {
+      .then((response: any) => {
         let tags = response.data.tags;
         tags
           .forEach((tag: Tag) => {
@@ -50,10 +51,10 @@ export class AppComponent implements OnInit {
       })
   }
 
-  private initPolling(): void {
+  private initNodesPolling(): void {
     this.queryPolling = this.apollo.watchQuery({
         query: queries.getAllNodes,
-        pollInterval: 10000
+        pollInterval: 30 * 1000
       })
 
     this.queryPolling
@@ -64,6 +65,14 @@ export class AppComponent implements OnInit {
     this.clusterNodeFilteredSubscription =
       this.clusterNodeSubscription
         .combineLatest<any, ClusterNode[]>(this.attributeFilter, this.filterNodesWithAttributes);
+  }
+
+  private initStatusPolling(): void {
+    this.apollo.watchQuery({
+      query: queries.getAllStatus,
+      pollInterval: 5 * 1000
+    })
+    .subscribe(_ => {});
   }
 
   private filterNodesWithAttributes(nodes: ClusterNode[], filter: any): ClusterNode[] {
