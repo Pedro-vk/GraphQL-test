@@ -14,17 +14,21 @@ const client = new ApolloClient({
   dataIdFromObject: (_: GraphCoolObject): any => _.id
 });
 
+export const imports = [
+  BrowserModule,
+  FormsModule,
+  ApolloModule.withClient(client),
+];
+
+export const declarations = [
+  AppComponent,
+  ...appComponents,
+  ...Pipes,
+];
+
 @NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ApolloModule.withClient(client),
-  ],
-  declarations: [
-    AppComponent,
-    ...appComponents,
-    ...Pipes,
-  ],
+  imports: imports,
+  declarations: declarations,
   bootstrap: [ AppComponent ]
 })
 export class AppModule {

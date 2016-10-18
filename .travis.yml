@@ -4,11 +4,12 @@ node_js:
 before_install:
 - openssl aes-256-cbc -K $encrypted_e267934cbac7_key -iv $encrypted_e267934cbac7_iv
   -in .travisGitHub.enc -out .travisGitHub -d
-after_sucess:
+after_success:
+- npm run build
 - npm run gh-pages-travis
 env:
   global:
-  - SSH_KEY="id_rsa"
+  - SSH_KEY=".travisGitHub"
   - GIT_NAME="Pedro Gutiérrez"
   - GIT_EMAIL="pedrogp9_6_93@hotmail.com"
   - SOURCE_DIR="dist"
