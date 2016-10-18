@@ -2,6 +2,7 @@
   "name": "graphql-test",
   "version": "0.1.0",
   "private": true,
+  "homepage": "graphql.xitrus.es",
   "description": "GraphQL Test",
   "scripts": {
     "start": "webpack-dev-server --inline --progress --port 8080",
@@ -11,7 +12,8 @@
     "tslint": "tslint \"./src/**/*.ts\"",
     "sass-lint": "sass-lint --verbose",
     "lint": "npm run sass-lint && npm run tslint",
-    "gh-pages-travis": "gh-pages-travis"
+    "create-cname": "echo $(cat package.json | grep '\"homepage\"' | cut -d '\"' -f 4) > dist/CNAME",
+    "gh-pages-travis": "npm run create-cname && gh-pages-travis"
   },
   "dependencies": {
     "@angular/common": "^2.1.0",
