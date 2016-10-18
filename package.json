@@ -11,7 +11,7 @@
     "tslint": "tslint \"./src/**/*.ts\"",
     "sass-lint": "sass-lint --verbose",
     "lint": "npm run sass-lint && npm run tslint",
-    "replace": "json -I -f package.json -e"
+    "gh-pages-travis": "gh-pages-travis"
   },
   "dependencies": {
     "@angular/common": "^2.1.0",
@@ -46,6 +46,7 @@
     "css-loader": "0.25.0",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.9.0",
+    "gh-pages-travis": "^1.0.0",
     "html-loader": "0.4.4",
     "html-webpack-plugin": "2.22.0",
     "jasmine-core": "2.5.2",
