@@ -13,7 +13,7 @@ export class SidebarComponent implements AfterViewInit {
   @Input() filterName: any = {};
   @Output() appliedFiltersChange = new EventEmitter<any>();
   appliedFilters: any = {};
-  private _filters: any = {};
+  private _filters: any[] = [];
 
   constructor() { }
 
@@ -34,19 +34,19 @@ export class SidebarComponent implements AfterViewInit {
     this.appliedFiltersChange.emit(this.appliedFilters);
   }
 
-  private setAppliedFilters(filters: any): void {
-    if (!(filters instanceof Object)) {
+  private setAppliedFilters(filters: any[]): void {
+    if (!filters || filters.length === 0) {
       return;
     }
-    Object.keys(filters)
-      .forEach((filter: string) => {
-        if (!this.appliedFilters[filter]) {
-          this.appliedFilters[filter] = {};
+    filters
+      .forEach((filter: any) => {
+        if (!this.appliedFilters[filter.key]) {
+          this.appliedFilters[filter.key] = {};
         }
-        Object.keys(filters[filter])
+        Object.keys(filter.value)
           .forEach((attr: string) => {
-            if (typeof this.appliedFilters[filter][attr] !== 'boolean') {
-              this.appliedFilters[filter][attr] = false;
+            if (typeof this.appliedFilters[filter.key][attr] !== 'boolean') {
+              this.appliedFilters[filter.key][attr] = false;
             }
           });
       });

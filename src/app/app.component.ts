@@ -109,9 +109,7 @@ export class AppComponent implements OnInit {
       }
     }
     function getValues(_: any): any[] {
-      return Object.keys(_).map(function(key) {
-        return _[key];
-      });
+      return Object.keys(_).map((key) => _[key]);
     }
   }
 
@@ -129,7 +127,8 @@ export class AppComponent implements OnInit {
 
     this.attributeCounter =
       attributeCounter
-        .combineLatest(attributeCounterFiltered, combineCounters);
+        .combineLatest(attributeCounterFiltered, combineCounters)
+        .map(counterToArrayAndSort);
 
     function combineCounters(counterComplete: any, counterFiltered: any) {
       let counterCompleteCopy = JSON.parse(JSON.stringify(counterComplete));
@@ -141,6 +140,15 @@ export class AppComponent implements OnInit {
             });
         });
       return counterCompleteCopy;
+    }
+
+    function counterToArrayAndSort(counter: any) {
+      const filterOrder = ['statuses', 'location', 'tags'].reverse();
+      return Object.keys(counter)
+        .map((key: string) => ({key, value: counter[key]}))
+        .sort((a: any, b: any) => {
+          return filterOrder.indexOf(a.key) > filterOrder.indexOf(b.key) ? -1 : 1;
+        });
     }
   }
 }

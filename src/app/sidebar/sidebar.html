@@ -1,7 +1,7 @@
 <div class="title">
   Filter
 </div>
-<div *ngFor="let filter of filters | keys; let i = index">
+<div *ngFor="let filter of filters; let i = index">
   <div class="filter">
     {{filterName[filter.key] || filter.key}}
   </div>
