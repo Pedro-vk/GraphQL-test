@@ -3,7 +3,7 @@
 </div>
 <div *ngFor="let filter of filters | keys; let i = index">
   <div class="filter">
-    {{filter.key}}
+    {{filterName[filter.key] || filter.key}}
   </div>
   <div class="attributes">
     <div

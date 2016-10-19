@@ -5,8 +5,6 @@ export class AttributeCounter<T> {
   private attributes: string[];
   private arrayAttributes: any;
 
-  // TODO add a special type for add custom counters (for example: nodes with services)
-  // Add node status? (up/down)
   constructor (attributes: string[] = [], arrayAttributes: any = {}) {
     this.attributes = attributes;
     this.arrayAttributes = arrayAttributes;

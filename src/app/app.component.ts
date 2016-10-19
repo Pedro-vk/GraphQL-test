@@ -83,7 +83,8 @@ export class AppComponent implements OnInit {
       .filter(simpleAttributeFilter('cores'))
       .filter(simpleAttributeFilter('memory'))
       .filter(simpleAttributeFilter('location'))
-      .filter(arrayAttributeFilter('tags', (_: Tag) => _.name));
+      .filter(arrayAttributeFilter('tags', (_: Tag) => _.name))
+      .filter(arrayAttributeFilter('statuses', (_: Status) => _.service.name));
 
     function simpleAttributeFilter(attr: string) {
       return (item: any): boolean => {
@@ -117,7 +118,8 @@ export class AppComponent implements OnInit {
   private initCountReducer(): void {
     const simple = ['cores', 'memory', 'location'];
     const arrays = {
-      'tags': (_: Tag) => _.name
+      'tags': (_: Tag) => _.name,
+      'statuses': (_: Status) => _.service.name,
     };
 
     const attributeCounter = new AttributeCounter<any>(simple, arrays)

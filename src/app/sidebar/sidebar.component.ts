@@ -10,6 +10,7 @@ import { Angular2Apollo } from 'angular2-apollo';
 export class SidebarComponent implements AfterViewInit {
   @Input() filterClassFn: () => string;
   @Input() dictionary: any = {};
+  @Input() filterName: any = {};
   @Output() appliedFiltersChange = new EventEmitter<any>();
   appliedFilters: any = {};
   private _filters: any = {};

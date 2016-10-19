@@ -8,6 +8,9 @@
       'cores': ' cores',
       'memory': 'gb'
     }"
+    [filterName]="{
+      'statuses': 'services'
+    }"
     [filters]="attributeCounter | async"
     (appliedFiltersChange)="attributeFilter.next($event)">
   </Sidebar>
