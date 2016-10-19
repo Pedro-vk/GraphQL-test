@@ -3,14 +3,14 @@ import { Observable } from 'rxjs';
 export class AttributeCounter<T> {
   private attrs: string[] = [];
   private attributes: string[];
-  private arrayAttributes: string[];
+  private arrayAttributes: any;
 
   // TODO add a special type for add custom counters (for example: nodes with services)
   // Add node status? (up/down)
-  constructor (attributes: string[] = [], arrayAttributes: string[] = []) {
+  constructor (attributes: string[] = [], arrayAttributes: any = {}) {
     this.attributes = attributes;
     this.arrayAttributes = arrayAttributes;
-    this.attrs = [].concat(this.attributes).concat(this.arrayAttributes);
+    this.attrs = [].concat(this.attributes).concat(Object.keys(this.arrayAttributes));
   }
 
   counterFrom(observable: Observable<T[]>): Observable<any> {
@@ -20,11 +20,12 @@ export class AttributeCounter<T> {
           .reduce((acc: any, item: T) => {
             this.attributes
               .forEach((attr: string) => acc[attr][item[attr]] = (acc[attr][item[attr]] || 0) + 1);
-            this.arrayAttributes
+            Object.keys(this.arrayAttributes)
               .forEach((attr: string) => {
                 item[attr]
-                  .forEach((items: any) => {
-                    acc[attr][items.name] = (acc[attr][items.name] || 0) + 1;
+                  .forEach((elem: any) => {
+                    let id = this.arrayAttributes[attr](elem);
+                    acc[attr][id] = (acc[attr][id] || 0) + 1;
                   });
               });
             return acc;

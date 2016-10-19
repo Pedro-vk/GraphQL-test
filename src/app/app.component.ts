@@ -116,11 +116,13 @@ export class AppComponent implements OnInit {
 
   private initCountReducer(): void {
     const simple = ['cores', 'memory', 'location'];
-    const array = ['tags'];
+    const arrays = {
+      'tags': (_: Tag) => _.name
+    };
 
-    const attributeCounter = new AttributeCounter<ClusterNode>(simple, array)
+    const attributeCounter = new AttributeCounter<any>(simple, arrays)
       .counterFrom(this.clusterNodeSubscription);
-    const attributeCounterFiltered = new AttributeCounter<ClusterNode>(simple, array)
+    const attributeCounterFiltered = new AttributeCounter<any>(simple, arrays)
       .counterFrom(this.clusterNodeFilteredSubscription);
 
     this.attributeCounter =
