@@ -45,7 +45,7 @@ rules:
   no-color-keywords: 1
   no-color-literals: 1
   #no-css-comments: 1
-  no-extends: 1
+  #no-extends: 1
   no-duplicate-properties: 1
   no-empty-rulesets: 1
   no-ids: 1
@@ -59,7 +59,7 @@ rules:
   no-trailing-whitespace: 1
   no-trailing-zero: 1
   no-url-protocols: 1
-  no-vendor-prefixes: 1
+  #no-vendor-prefixes: 1
   one-declaration-per-line: 1
   placeholder-name-format:
     - 1

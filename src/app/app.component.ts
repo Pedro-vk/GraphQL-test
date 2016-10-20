@@ -8,6 +8,7 @@ import { Observable, Subject } from 'rxjs';
 @Component({
   selector: 'app-graphql',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   template: require('./app.html'),
   styles: [require('./app.scss')]
 })
@@ -33,6 +34,9 @@ export class AppComponent implements OnInit {
     return (filter: string, attribute: string) => {
       if (filter === 'tags' && self.tags && self.tags[attribute]) {
         return `filter-tags filter-tags-${self.tags[attribute].colornumber}`;
+      }
+      if (filter === 'statuses') {
+        return `filter-service filter-service-${attribute.toLowerCase()}`;
       }
     };
   }

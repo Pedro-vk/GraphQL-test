@@ -1,6 +1,9 @@
 @import '../style/index';
 
-@include reset();
+@include reset;
+
+@include font-icon-font-face;
+@include font-icon-includes;
 
 $dashboard__header---height: 72px;
 
@@ -11,7 +14,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
 
 .dashboard {
   position: fixed;
@@ -64,6 +66,35 @@ body {
     @for $i from 0 through (length($tags-palette) - 1) {
       /deep/ .filter-tags-#{$i}:before {
         background: nth($tags-palette, ($i + 1));
+      }
+    }
+
+    /deep/ .filter-service {
+      &:before {
+        @include font-icon;
+
+        display: inline-block;
+        width: 18px;
+        font-size: 1.2em;
+        position: relative;
+        top: 1px;
+        color: get-color(n8);
+        box-shadow: 0 -1px 1px get-color(n0);
+      }
+      &-cassandra:before {
+        @extend .icon-cassandra:before;
+      }
+      &-docker:before {
+        @extend .icon-docker:before;
+      }
+      &-hdfs:before {
+        @extend .icon-hdfs:before;
+      }
+      &-mesos:before {
+        @extend .icon-mesos:before;
+      }
+      &-mongodb:before {
+        @extend .icon-mongodb:before;
       }
     }
   }

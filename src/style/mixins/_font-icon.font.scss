@@ -1,0 +1,133 @@
+@mixin font-icon-font-face {
+  @font-face {
+    font-family: 'fonticon';
+    src:
+    url('/assets/fonts/fonticon.eot?4navij#iefix') format('embedded-opentype'),
+    url('/assets/fonts/fonticon.ttf?4navij') format('truetype'),
+    url('/assets/fonts/fonticon.woff?4navij') format('woff'),
+    url('/assets/fonts/fonticon.svg?4navij#fonticon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+@mixin font-icon {
+  font-family: 'fonticon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@mixin font-icon-class {
+  [class^="icon-"],
+  [class*=" icon-"] {
+    @include font-icon;
+  }
+}
+
+@mixin font-icon-icon-filter {
+  .icon-filter:before {
+    content: "\e616";
+  }
+}
+@mixin font-icon-icon-mongodb {
+  .icon-mongodb:before {
+    content: "\e623";
+  }
+}
+@mixin font-icon-icon-cassandra {
+  .icon-cassandra:before {
+    content: "\e62f";
+  }
+}
+@mixin font-icon-icon-rabbitmq {
+  .icon-rabbitmq:before {
+    content: "\e636";
+  }
+}
+@mixin font-icon-icon-kafka {
+  .icon-kafka:before {
+    content: "\e645";
+  }
+}
+@mixin font-icon-icon-flume {
+  .icon-flume:before {
+    content: "\e646";
+  }
+}
+@mixin font-icon-icon-parquet {
+  .icon-parquet:before {
+    content: "\e649";
+  }
+}
+@mixin font-icon-icon-redis {
+  .icon-redis:before {
+    content: "\e64b";
+  }
+}
+@mixin font-icon-icon-hdfs {
+  .icon-hdfs:before {
+    content: "\e901";
+  }
+}
+@mixin font-icon-icon-hbase {
+  .icon-hbase:before {
+    content: "\e919";
+  }
+}
+@mixin font-icon-icon-druid {
+  .icon-druid:before {
+    content: "\e91a";
+  }
+}
+@mixin font-icon-icon-hive {
+  .icon-hive:before {
+    content: "\e91b";
+  }
+}
+@mixin font-icon-icon-mesos {
+  .icon-mesos:before {
+    content: "\e91f";
+  }
+}
+@mixin font-icon-icon-solr {
+  .icon-solr:before {
+    content: "\e929";
+  }
+}
+@mixin font-icon-icon-github {
+  .icon-github:before {
+    content: "\e92a";
+  }
+}
+@mixin font-icon-icon-docker {
+  .icon-docker:before {
+    content: "\e92b";
+  }
+}
+
+
+@mixin font-icon-includes {
+  @include font-icon-class;
+
+  @include font-icon-icon-filter;
+  @include font-icon-icon-mongodb;
+  @include font-icon-icon-cassandra;
+  @include font-icon-icon-rabbitmq;
+  @include font-icon-icon-kafka;
+  @include font-icon-icon-flume;
+  @include font-icon-icon-parquet;
+  @include font-icon-icon-redis;
+  @include font-icon-icon-hdfs;
+  @include font-icon-icon-hbase;
+  @include font-icon-icon-druid;
+  @include font-icon-icon-hive;
+  @include font-icon-icon-mesos;
+  @include font-icon-icon-solr;
+  @include font-icon-icon-github;
+  @include font-icon-icon-docker;
+}
