@@ -76,7 +76,7 @@ export class AppComponent implements OnInit {
       query: queries.getAllStatus,
       pollInterval: 5 * 1000
     })
-    .subscribe(_ => {});
+      .subscribe(_ => {});
   }
 
   private filterNodesWithAttributes(nodes: ClusterNode[], filter: any): ClusterNode[] {
