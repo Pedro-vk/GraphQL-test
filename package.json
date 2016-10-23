@@ -1,13 +1,15 @@
 {
   "name": "graphql-test",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "private": true,
-  "homepage": "graphql.xitrus.es",
   "description": "GraphQL Test",
+  "homepage": "graphql.xitrus.es",
+  "author": "Pedro Gutiérrez <info@xitrus.es> (http://xitrus.es)",
   "repository": {
     "type": "git",
     "url": "https://github.com/Pedro-vk/GraphQL-test"
   },
+  "license": "GPL-3.0",
   "scripts": {
     "start": "webpack-dev-server --inline --progress --port 8080",
     "test": "karma start",

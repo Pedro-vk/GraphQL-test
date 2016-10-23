@@ -1,14 +1,24 @@
 <div class="dashboard">
-  <h1 class="dashboard__heading">
-    GraphQL - Test
-    <span class="dashboard__heading-icon">
-      <a
-        class="icon-github"
-        target="_blank"
-        [href]="githubRepositoryUrl">
-      </a>
-    </span>
-  </h1>
+  <div class="dashboard__heading">
+    <h1>
+      GraphQL - Test
+    </h1>
+    <div class="dashboard__heading-info">
+      <span class="dashboard__heading-info-item dashboard__heading-info-item--author">
+        Author: <span>{{projectAuthor}}</span>
+      </span>
+      <span class="dashboard__heading-info-item dashboard__heading-info-item--version">
+        Version: <span>{{projectVersion}}</span>
+      </span>
+      <span class="dashboard__heading-icon">
+        <a
+          class="icon-github"
+          target="_blank"
+          [href]="githubRepositoryUrl">
+        </a>
+      </span>
+    </div>
+  </div>
 
   <Sidebar
     class="dashboard__sidebar"

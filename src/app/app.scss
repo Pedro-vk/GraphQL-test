@@ -41,10 +41,26 @@ body {
     background: get-color(n1);
     border-bottom: 1px solid get-color(n2);
     margin: 0;
+    display: flex;
+    justify-content: space-between;
+
+    &-info-item {
+      height: $dashboard__header---height;
+      line-height: $dashboard__header---height;
+      font-size: 14px;
+      color: get-color(n5);
+      margin-right: 12px;
+      display: inline-block;
+      vertical-align: top;
+
+      span {
+        color: get-color(n6);
+        font-weight: bold;
+      }
+    }
 
     &-icon {
       line-height: $dashboard__header---height;
-      float: right;
 
       a {
         cursor: pointer;

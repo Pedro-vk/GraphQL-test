@@ -13,6 +13,8 @@ import { Observable, Subject } from 'rxjs';
   styles: [require('./app.scss')]
 })
 export class AppComponent implements OnInit {
+  projectAuthor: string = '';
+  projectVersion: string = '';
   githubRepositoryUrl: string = '';
   attributeFilter: Subject<any> = new Subject<any>();
   private tags: { [tag: string]: Tag; } = {};
@@ -159,6 +161,12 @@ export class AppComponent implements OnInit {
   }
 
   getGithubRepositoryUrl(): void {
-    this.githubRepositoryUrl = require('../../package.json').repository.url;
+    try {
+      const packageInfo = require('../../package.json');
+
+      this.githubRepositoryUrl = packageInfo.repository.url;
+      this.projectVersion = packageInfo.version;
+      this.projectAuthor = packageInfo.author.split(' <')[0];
+    } catch(e) {}
   }
 }
