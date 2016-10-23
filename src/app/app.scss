@@ -41,6 +41,21 @@ body {
     background: get-color(n1);
     border-bottom: 1px solid get-color(n2);
     margin: 0;
+
+    &-icon {
+      line-height: $dashboard__header---height;
+      float: right;
+
+      a {
+        cursor: pointer;
+        color: get-color(n7);
+        text-decoration: none;
+
+        &:hover {
+          color: get-color(n8);
+        }
+      }
+    }
   }
 
   &__sidebar {

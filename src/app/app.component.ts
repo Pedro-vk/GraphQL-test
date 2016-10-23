@@ -13,6 +13,7 @@ import { Observable, Subject } from 'rxjs';
   styles: [require('./app.scss')]
 })
 export class AppComponent implements OnInit {
+  githubRepositoryUrl: string = '';
   attributeFilter: Subject<any> = new Subject<any>();
   private tags: { [tag: string]: Tag; } = {};
   private queryPolling: ApolloQueryObservable<ApolloQueryResult>;
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit {
     this.initNodesPolling();
     this.initStatusPolling();
     this.initCountReducer();
+    this.getGithubRepositoryUrl();
   }
 
   sidebarFilterClass() {
@@ -154,5 +156,9 @@ export class AppComponent implements OnInit {
           return filterOrder.indexOf(a.key) > filterOrder.indexOf(b.key) ? -1 : 1;
         });
     }
+  }
+
+  getGithubRepositoryUrl(): void {
+    this.githubRepositoryUrl = require('../../package.json').repository.url;
   }
 }

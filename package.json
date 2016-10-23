@@ -4,6 +4,10 @@
   "private": true,
   "homepage": "graphql.xitrus.es",
   "description": "GraphQL Test",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pedro-vk/GraphQL-test"
+  },
   "scripts": {
     "start": "webpack-dev-server --inline --progress --port 8080",
     "test": "karma start",
