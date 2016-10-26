@@ -29,105 +29,105 @@
   }
 }
 
-@mixin font-icon-icon-filter {
-  .icon-filter:before {
-    content: "\e616";
-  }
+@mixin font-icon-filter {
+  content: "\e616";
 }
-@mixin font-icon-icon-mongodb {
-  .icon-mongodb:before {
-    content: "\e623";
-  }
+@mixin font-icon-mongodb {
+  content: "\e623";
 }
-@mixin font-icon-icon-cassandra {
-  .icon-cassandra:before {
-    content: "\e62f";
-  }
+@mixin font-icon-cassandra {
+  content: "\e62f";
 }
-@mixin font-icon-icon-rabbitmq {
-  .icon-rabbitmq:before {
-    content: "\e636";
-  }
+@mixin font-icon-rabbitmq {
+  content: "\e636";
 }
-@mixin font-icon-icon-kafka {
-  .icon-kafka:before {
-    content: "\e645";
-  }
+@mixin font-icon-kafka {
+  content: "\e645";
 }
-@mixin font-icon-icon-flume {
-  .icon-flume:before {
-    content: "\e646";
-  }
+@mixin font-icon-flume {
+  content: "\e646";
 }
-@mixin font-icon-icon-parquet {
-  .icon-parquet:before {
-    content: "\e649";
-  }
+@mixin font-icon-parquet {
+  content: "\e649";
 }
-@mixin font-icon-icon-redis {
-  .icon-redis:before {
-    content: "\e64b";
-  }
+@mixin font-icon-redis {
+  content: "\e64b";
 }
-@mixin font-icon-icon-hdfs {
-  .icon-hdfs:before {
-    content: "\e901";
-  }
+@mixin font-icon-hdfs {
+  content: "\e901";
 }
-@mixin font-icon-icon-hbase {
-  .icon-hbase:before {
-    content: "\e919";
-  }
+@mixin font-icon-hbase {
+  content: "\e919";
 }
-@mixin font-icon-icon-druid {
-  .icon-druid:before {
-    content: "\e91a";
-  }
+@mixin font-icon-druid {
+  content: "\e91a";
 }
-@mixin font-icon-icon-hive {
-  .icon-hive:before {
-    content: "\e91b";
-  }
+@mixin font-icon-hive {
+  content: "\e91b";
 }
-@mixin font-icon-icon-mesos {
-  .icon-mesos:before {
-    content: "\e91f";
-  }
+@mixin font-icon-mesos {
+  content: "\e91f";
 }
-@mixin font-icon-icon-solr {
-  .icon-solr:before {
-    content: "\e929";
-  }
+@mixin font-icon-solr {
+  content: "\e929";
 }
-@mixin font-icon-icon-github {
-  .icon-github:before {
-    content: "\e92a";
-  }
+@mixin font-icon-github {
+  content: "\e92a";
 }
-@mixin font-icon-icon-docker {
-  .icon-docker:before {
-    content: "\e92b";
-  }
+@mixin font-icon-docker {
+  content: "\e92b";
 }
 
 
 @mixin font-icon-includes {
   @include font-icon-class;
 
-  @include font-icon-icon-filter;
-  @include font-icon-icon-mongodb;
-  @include font-icon-icon-cassandra;
-  @include font-icon-icon-rabbitmq;
-  @include font-icon-icon-kafka;
-  @include font-icon-icon-flume;
-  @include font-icon-icon-parquet;
-  @include font-icon-icon-redis;
-  @include font-icon-icon-hdfs;
-  @include font-icon-icon-hbase;
-  @include font-icon-icon-druid;
-  @include font-icon-icon-hive;
-  @include font-icon-icon-mesos;
-  @include font-icon-icon-solr;
-  @include font-icon-icon-github;
-  @include font-icon-icon-docker;
+  .icon-filter:before {
+    @include font-icon-filter;
+  }
+  .icon-mongodb:before {
+    @include font-icon-mongodb;
+  }
+  .icon-cassandra:before {
+    @include font-icon-cassandra;
+  }
+  .icon-rabbitmq:before {
+    @include font-icon-rabbitmq;
+  }
+  .icon-kafka:before {
+    @include font-icon-kafka;
+  }
+  .icon-flume:before {
+    @include font-icon-flume;
+  }
+  .icon-parquet:before {
+    @include font-icon-parquet;
+  }
+  .icon-redis:before {
+    @include font-icon-redis;
+  }
+  .icon-hdfs:before {
+    @include font-icon-hdfs;
+  }
+  .icon-hbase:before {
+    @include font-icon-hbase;
+  }
+  .icon-druid:before {
+    @include font-icon-druid;
+  }
+  .icon-hive:before {
+    @include font-icon-hive;
+  }
+  .icon-mesos:before {
+    @include font-icon-mesos;
+  }
+  .icon-solr:before {
+    @include font-icon-solr;
+  }
+  .icon-github:before {
+    @include font-icon-github;
+  }
+  .icon-docker:before {
+    @include font-icon-docker;
+  }
 }

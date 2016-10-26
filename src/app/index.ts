@@ -1,9 +1,7 @@
-import { NodeComponent } from './node';
-import { SidebarComponent } from './sidebar';
+import { dashboardComponents } from './+dashboard';
 
 export const appComponents = [
-  NodeComponent,
-  SidebarComponent,
+  ...dashboardComponents
 ];
 
 export { AppModule } from './app.module';

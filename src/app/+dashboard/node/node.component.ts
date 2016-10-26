@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input, EventEmitter } from '@angular/core';
 import { Angular2Apollo } from 'angular2-apollo';
 
-import { queries, ClusterNode, Status, StatusStatus } from '../shared';
+import { queries, ClusterNode, Status, StatusStatus } from '../../shared';
 
 @Component({
   selector: 'Node',

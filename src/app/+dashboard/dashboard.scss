@@ -1,0 +1,129 @@
+@import '../../style/index';
+
+$dashboard__header---height: 72px;
+
+.dashboard {
+  position: fixed;
+  top: $dashboard__header---height;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  background: get-color(n0);
+
+  &__heading {
+    @include font-family;
+
+    position: absolute;
+    top: -$dashboard__header---height;
+    width: 100%;
+    height: $dashboard__header---height;
+    line-height: $dashboard__header---height;
+    font-size: 32px;
+    font-weight: 300;
+    padding: 0 20px;
+    color: get-color(n8);
+    background: get-color(n1);
+    border-bottom: 1px solid get-color(n2);
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+
+    &-info-item {
+      height: $dashboard__header---height;
+      line-height: $dashboard__header---height;
+      font-size: 14px;
+      color: get-color(n5);
+      margin-right: 12px;
+      display: inline-block;
+      vertical-align: top;
+
+      span {
+        color: get-color(n6);
+        font-weight: bold;
+      }
+    }
+
+    &-icon {
+      line-height: $dashboard__header---height;
+
+      a {
+        cursor: pointer;
+        color: get-color(n7);
+        text-decoration: none;
+
+        &:hover {
+          color: get-color(n8);
+        }
+      }
+    }
+  }
+
+  &__sidebar {
+    @extend %webkit-overflow;
+
+    max-height: 100%;
+    width: 200px;
+    padding: 20px;
+    background: get-color(n1);
+    border-right: 1px solid get-color(n2);
+    overflow: auto;
+
+    /deep/ .filter-tags:before {
+      $size: 8px;
+
+      content: '';
+      margin-right: 4px;
+      height: $size;
+      width: $size;
+      border-radius: $size / 2;
+      display: inline-block;
+      box-shadow: 0 1px 2px get-color(n2);
+    }
+
+    @for $i from 0 through (length($tags-palette) - 1) {
+      /deep/ .filter-tags-#{$i}:before {
+        background: nth($tags-palette, ($i + 1));
+      }
+    }
+
+    /deep/ .filter-service {
+      &:before {
+        @include font-icon;
+
+        display: inline-block;
+        width: 18px;
+        font-size: 1.2em;
+        position: relative;
+        top: 1px;
+        color: get-color(n8);
+        box-shadow: 0 -1px 1px get-color(n0);
+      }
+      &-cassandra:before {
+        @include font-icon-cassandra;
+      }
+      &-docker:before {
+        @include font-icon-docker;
+      }
+      &-hdfs:before {
+        @include font-icon-hdfs;
+      }
+      &-mesos:before {
+        @include font-icon-mesos;
+      }
+      &-mongodb:before {
+        @include font-icon-mongodb;
+      }
+    }
+  }
+
+  &__content {
+    @extend %webkit-overflow;
+
+    flex: 1;
+    padding: 10px;
+    overflow: auto;
+    height: 100%;
+  }
+}
