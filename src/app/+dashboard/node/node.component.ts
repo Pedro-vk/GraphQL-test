@@ -4,10 +4,10 @@ import { Angular2Apollo } from 'angular2-apollo';
 import { queries, ClusterNode, Status, StatusStatus } from '../../shared';
 
 @Component({
-  selector: 'Node',
+  selector: 'pgp-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: require('./node.html'),
-  styles: [require('./node.scss')]
+  styles: [require('./node.scss')],
 })
 export class NodeComponent {
   @Input() details: ClusterNode;
@@ -17,6 +17,7 @@ export class NodeComponent {
   toggleStatus(status: Status): void {
     let newStatus: StatusStatus;
     switch (status.status) {
+      default:
       case 'WAITING': return;
       case 'STARTED': newStatus = 'STOPPED'; break;
       case 'STOPPED': newStatus = 'STARTED'; break;
@@ -28,7 +29,7 @@ export class NodeComponent {
   toggleStatusMutation(statusId: string, status: StatusStatus): void {
     this.apollo.mutate({
       mutation: queries.updateStatus,
-      variables: queries.updateStatus.variables(statusId, status)
+      variables: queries.updateStatus.variables(statusId, status),
     });
   }
 }

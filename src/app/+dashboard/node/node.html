@@ -13,7 +13,7 @@
 <div class="tags">
   <div
     class="tag tag-{{tag.colornumber}}"
-    *ngFor="let tag of details.tags | orderByOnSidebar : 'colornumber'; let i = index">
+    *ngFor="let tag of details.tags | pgpOrderByOnSidebar : 'colornumber'; let i = index">
 
     {{tag.name}}
   </div>

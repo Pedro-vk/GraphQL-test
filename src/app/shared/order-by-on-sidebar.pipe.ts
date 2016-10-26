@@ -1,8 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
-@Pipe({name: 'orderByOnSidebar'})
+@Pipe({name: 'pgpOrderByOnSidebar'})
 export class OrderByOnSidebarPipe implements PipeTransform {
-  transform(value: any[], filter: string) {
+  transform(value: any[], filter: string): any[] {
     if (!value) {
       return [];
     }

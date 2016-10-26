@@ -2,16 +2,16 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, AfterV
 import { Angular2Apollo } from 'angular2-apollo';
 
 @Component({
-  selector: 'Sidebar',
+  selector: 'pgp-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: require('./sidebar.html'),
-  styles: [require('./sidebar.scss')]
+  styles: [require('./sidebar.scss')],
 })
 export class SidebarComponent implements AfterViewInit {
   @Input() filterClassFn: () => string;
   @Input() dictionary: any = {};
   @Input() filterName: any = {};
-  @Output() appliedFiltersChange = new EventEmitter<any>();
+  @Output() appliedFiltersChange: EventEmitter<any> = new EventEmitter<any>();
   appliedFilters: any = {};
   private _filters: any[] = [];
 

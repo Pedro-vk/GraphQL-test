@@ -20,7 +20,7 @@
     </div>
   </div>
 
-  <Sidebar
+  <pgp-sidebar
     class="dashboard__sidebar"
     [filterClassFn]="sidebarFilterClass()"
     [dictionary]="{
@@ -32,9 +32,9 @@
     }"
     [filters]="attributeCounter | async"
     (appliedFiltersChange)="attributeFilter.next($event)">
-  </Sidebar>
+  </pgp-sidebar>
 
   <div class="dashboard__content">
-    <Node [details]="node" *ngFor="let node of clusterNodeFilteredSubscription | async; let i = index"></Node>
+    <pgp-node [details]="node" *ngFor="let node of clusterNodeFilteredSubscription | async; let i = index"></pgp-node>
   </div>
 </div>

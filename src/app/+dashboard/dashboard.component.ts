@@ -9,7 +9,7 @@ import { Observable, Subject } from 'rxjs';
   selector: 'pgp-dashboard',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: require('./dashboard.html'),
-  styles: [require('./dashboard.scss')]
+  styles: [require('./dashboard.scss')],
 })
 export class DashboardComponent implements OnInit {
   projectAuthor: string = '';
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
     this.getGithubRepositoryUrl();
   }
 
-  sidebarFilterClass() {
+  sidebarFilterClass(): (filter: string, attribute: string) => string {
     let self = this;
     return (filter: string, attribute: string) => {
       if (filter === 'tags' && self.tags && self.tags[attribute]) {
@@ -44,10 +44,20 @@ export class DashboardComponent implements OnInit {
     };
   }
 
+  getGithubRepositoryUrl(): void {
+    try {
+      const packageInfo = require('../../../package.json');
+
+      this.githubRepositoryUrl = packageInfo.repository.url;
+      this.projectVersion = packageInfo.version;
+      this.projectAuthor = packageInfo.author.split(' <')[0];
+    } catch (e) { }
+  }
+
   private getAllTags(): void {
     this.apollo
       .query({
-        query: queries.getAllTags
+        query: queries.getAllTags,
       })
       .then((response: any) => {
         let tags = response.data.tags;
@@ -55,14 +65,14 @@ export class DashboardComponent implements OnInit {
           .forEach((tag: Tag) => {
             this.tags[tag.name] = tag;
           });
-      })
+      });
   }
 
   private initNodesPolling(): void {
     this.queryPolling = this.apollo.watchQuery({
         query: queries.getAllNodes,
-        pollInterval: 30 * 1000
-      })
+        pollInterval: 30 * 1000,
+      });
 
     this.queryPolling
       .subscribe((_: ApolloQueryResult) => {
@@ -77,7 +87,7 @@ export class DashboardComponent implements OnInit {
   private initStatusPolling(): void {
     this.apollo.watchQuery({
       query: queries.getAllStatus,
-      pollInterval: 5 * 1000
+      pollInterval: 5 * 1000,
     })
       .subscribe(_ => {});
   }
@@ -93,15 +103,15 @@ export class DashboardComponent implements OnInit {
       .filter(arrayAttributeFilter('tags', (_: Tag) => _.name))
       .filter(arrayAttributeFilter('statuses', (_: Status) => _.service.name));
 
-    function simpleAttributeFilter(attr: string) {
+    function simpleAttributeFilter(attr: string): (item: any) => boolean {
       return (item: any): boolean => {
         if (filter[attr] && getValues(filter[attr]).indexOf(true) === -1) {
           return true;
         }
         return filter[attr][item[attr]];
-      }
+      };
     }
-    function arrayAttributeFilter(attr: string, filterFn: (_: any) => string) {
+    function arrayAttributeFilter(attr: string, filterFn: (_: any) => string): (item: any) => boolean {
       return (item: any): boolean => {
         if (filter[attr] && getValues(filter[attr]).indexOf(true) === -1) {
           return true;
@@ -113,7 +123,7 @@ export class DashboardComponent implements OnInit {
         return filterElements
           .map((_: string) => itemElements.indexOf(_) !== -1)
           .indexOf(true) !== -1;
-      }
+      };
     }
     function getValues(_: any): any[] {
       return Object.keys(_).map((key) => _[key]);
@@ -137,7 +147,7 @@ export class DashboardComponent implements OnInit {
         .combineLatest(attributeCounterFiltered, combineCounters)
         .map(counterToArrayAndSort);
 
-    function combineCounters(counterComplete: any, counterFiltered: any) {
+    function combineCounters(counterComplete: any, counterFiltered: any): any {
       let counterCompleteCopy = JSON.parse(JSON.stringify(counterComplete));
       Object.keys(counterCompleteCopy)
         .forEach((key: string) => {
@@ -149,7 +159,7 @@ export class DashboardComponent implements OnInit {
       return counterCompleteCopy;
     }
 
-    function counterToArrayAndSort(counter: any) {
+    function counterToArrayAndSort(counter: any): any[] {
       const filterOrder = ['statuses', 'location', 'tags'].reverse();
       return Object.keys(counter)
         .map((key: string) => ({key, value: counter[key]}))
@@ -157,15 +167,5 @@ export class DashboardComponent implements OnInit {
           return filterOrder.indexOf(a.key) > filterOrder.indexOf(b.key) ? -1 : 1;
         });
     }
-  }
-
-  getGithubRepositoryUrl(): void {
-    try {
-      const packageInfo = require('../../../package.json');
-
-      this.githubRepositoryUrl = packageInfo.repository.url;
-      this.projectVersion = packageInfo.version;
-      this.projectAuthor = packageInfo.author.split(' <')[0];
-    } catch(e) {}
   }
 }

@@ -1,12 +1,13 @@
 import { dashboardComponents } from './+dashboard';
 
 export const appComponents = [
-  ...dashboardComponents
+  ...dashboardComponents,
 ];
 
 export { AppModule } from './app.module';
 
 
+/* tslint:disable */
 /*
 
     # Node creation

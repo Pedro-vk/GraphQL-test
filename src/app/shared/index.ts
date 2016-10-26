@@ -16,7 +16,7 @@ export { KeysPipe };
 import { OrderByOnSidebarPipe } from './order-by-on-sidebar.pipe';
 export { OrderByOnSidebarPipe };
 
-export const Pipes = [
+export const pipes = [
   KeysPipe,
   OrderByOnSidebarPipe,
 ];

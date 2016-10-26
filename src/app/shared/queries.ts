@@ -81,4 +81,4 @@ export const queries = {
   getAllStatus,
   createStatus,
   updateStatus,
-}
+};

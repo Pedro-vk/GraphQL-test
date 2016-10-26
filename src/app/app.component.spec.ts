@@ -10,7 +10,7 @@ describe('App', () => {
     TestBed.configureTestingModule({
       imports: imports,
       declarations: declarations,
-      providers: []
+      providers: [],
     });
   });
 
