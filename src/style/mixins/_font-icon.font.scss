@@ -29,6 +29,9 @@
   }
 }
 
+@mixin font-icon-search {
+  content: "\e036";
+}
 @mixin font-icon-filter {
   content: "\e616";
 }
@@ -82,6 +85,9 @@
 @mixin font-icon-includes {
   @include font-icon-class;
 
+  .icon-search:before {
+    @include font-icon-search;
+  }
   .icon-filter:before {
     @include font-icon-filter;
   }

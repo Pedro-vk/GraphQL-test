@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   githubRepositoryUrl: string = '';
   orderByFilter: Subject<any> = new Subject<any>();
   attributeFilter: Subject<any> = new Subject<any>();
+  searchFilter: Subject<any> = new Subject<any>();
   private tags: { [tag: string]: Tag; } = {};
   private clusterNodeSubscription: Observable<ClusterNode[]>;
   private clusterNodeFilteredSubscription: Observable<ClusterNode[]>;
@@ -69,11 +70,14 @@ export class DashboardComponent implements OnInit {
   private initNodesFiltering(): void {
     this.clusterNodeFilteredSubscription =
       this.clusterNodeSubscription
-        .combineLatest<any, string, ClusterNode[]>(this.attributeFilter, this.orderByFilter, this.filterNodesWithAttributes)
+        .combineLatest(
+          this.attributeFilter, this.orderByFilter, this.searchFilter,
+          this.filterNodesWithAttributes
+        )
         .share();
   }
 
-  private filterNodesWithAttributes(nodes: ClusterNode[], filter: any, orderBy: string): ClusterNode[] {
+  private filterNodesWithAttributes(nodes: ClusterNode[], filter: any, orderBy: string, search: string): ClusterNode[] {
     if (Object.keys(filter).length === 0) {
       return nodes;
     }
@@ -83,8 +87,23 @@ export class DashboardComponent implements OnInit {
       .filter(simpleAttributeFilter('location'))
       .filter(arrayAttributeFilter('tags', (_: Tag) => _.name))
       .filter(arrayAttributeFilter('statuses', (_: Status) => _.service.name))
+      .filter(searchInAttributes(search, ['name', 'location', 'localIp']))
       .sort((a: ClusterNode, b: ClusterNode) => a[orderBy] > b[orderBy] ? 1 : -1);
 
+    function searchInAttributes(filterSearch: string, attrs: string[]): (item: any) => boolean {
+      return (item: any): boolean => {
+        if (filterSearch === '') {
+          return true;
+        }
+        filterSearch = filterSearch.trim().toLowerCase();
+        for (let key of attrs) {
+          if (item[key].toLowerCase().indexOf(filterSearch) !== -1) {
+            return true;
+          }
+        }
+        return false;
+      };
+    }
     function simpleAttributeFilter(attr: string): (item: any) => boolean {
       return (item: any): boolean => {
         if (filter[attr] && getValues(filter[attr]).indexOf(true) === -1) {

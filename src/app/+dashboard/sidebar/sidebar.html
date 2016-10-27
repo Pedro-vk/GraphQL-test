@@ -1,3 +1,11 @@
+<div class="search">
+  <i class="search-icon icon-search"></i>
+  <input
+    class="search-input"
+    placeholder="Search..."
+    ngModel=""
+    (ngModelChange)="searchChange.emit($event)">
+</div>
 <div class="title">
   Order by
 </div>

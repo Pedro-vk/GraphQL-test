@@ -39,6 +39,7 @@
       'location'
     ]"
     orderBy="name"
+    (searchChange)="searchFilter.next($event)"
     (orderByChange)="orderByFilter.next($event)"
     (appliedFiltersChange)="attributeFilter.next($event)">
   </pgp-sidebar>
