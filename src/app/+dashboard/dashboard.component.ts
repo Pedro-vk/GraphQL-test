@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ApolloQueryResult } from 'apollo-client';
-import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
+
 import { ClusterNode, Status, StatusStatus, Tag } from '../shared/interfaces';
 import { queries, AttributeCounter } from '../shared';
+import { ClusterService } from '../shared/services';
 import { Observable, Subject } from 'rxjs';
 
 @Component({
@@ -17,17 +17,17 @@ export class DashboardComponent implements OnInit {
   githubRepositoryUrl: string = '';
   attributeFilter: Subject<any> = new Subject<any>();
   private tags: { [tag: string]: Tag; } = {};
-  private queryPolling: ApolloQueryObservable<ApolloQueryResult>;
-  private clusterNodeSubscription: Subject<ClusterNode[]> = new Subject<ClusterNode[]>();
+  private clusterNodeSubscription: Observable<ClusterNode[]>;
   private clusterNodeFilteredSubscription: Observable<ClusterNode[]>;
   private attributeCounter: Observable<any>;
 
-  constructor(private apollo: Angular2Apollo) {}
+  constructor(private clusterService: ClusterService) {}
 
   ngOnInit(): void {
+    this.clusterNodeSubscription = this.clusterService.getClusterNodeSubscription();
+
     this.getAllTags();
-    this.initNodesPolling();
-    this.initStatusPolling();
+    this.initNodesFiltering();
     this.initCountReducer();
     this.getGithubRepositoryUrl();
   }
@@ -55,12 +55,9 @@ export class DashboardComponent implements OnInit {
   }
 
   private getAllTags(): void {
-    this.apollo
-      .query({
-        query: queries.getAllTags,
-      })
-      .then((response: any) => {
-        let tags = response.data.tags;
+    this.clusterService
+      .getAllTags()
+      .then((tags: Tag[]) => {
         tags
           .forEach((tag: Tag) => {
             this.tags[tag.name] = tag;
@@ -68,28 +65,11 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  private initNodesPolling(): void {
-    this.queryPolling = this.apollo.watchQuery({
-        query: queries.getAllNodes,
-        pollInterval: 30 * 1000,
-      });
-
-    this.queryPolling
-      .subscribe((_: ApolloQueryResult) => {
-        this.clusterNodeSubscription.next(_.data.nodes);
-      });
-
+  private initNodesFiltering(): void {
     this.clusterNodeFilteredSubscription =
       this.clusterNodeSubscription
-        .combineLatest<any, ClusterNode[]>(this.attributeFilter, this.filterNodesWithAttributes);
-  }
-
-  private initStatusPolling(): void {
-    this.apollo.watchQuery({
-      query: queries.getAllStatus,
-      pollInterval: 5 * 1000,
-    })
-      .subscribe(_ => {});
+        .combineLatest<any, ClusterNode[]>(this.attributeFilter, this.filterNodesWithAttributes)
+        .share();
   }
 
   private filterNodesWithAttributes(nodes: ClusterNode[], filter: any): ClusterNode[] {

@@ -25,3 +25,12 @@ export { queries } from './queries';
 
 export { AttributeCounter } from './attribute-counter';
 
+import {
+  ClusterService,
+} from './services';
+
+import * as Services from './services';
+
+export const services = [
+  ClusterService,
+];

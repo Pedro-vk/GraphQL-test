@@ -7,7 +7,7 @@ import { ApolloModule } from 'angular2-apollo';
 
 import { AppComponent }  from './app.component';
 import { appComponents } from './';
-import { GraphCoolObject, pipes }  from './shared';
+import { GraphCoolObject, pipes, services }  from './shared';
 
 const client = new ApolloClient({
   networkInterface: createNetworkInterface('https://api.graph.cool/simple/v1/ciu5o9tpz0jg101483bjlp75g'),
@@ -27,9 +27,14 @@ export const declarations = [
   ...pipes,
 ];
 
+export const providers = [
+  ...services,
+];
+
 @NgModule({
   imports: imports,
   declarations: declarations,
+  providers: providers,
   bootstrap: [ AppComponent ],
 })
 export class AppModule {

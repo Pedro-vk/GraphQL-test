@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
-import { imports, declarations } from './app.module';
+import { imports, declarations, providers } from './app.module';
 
 
 describe('App', () => {
@@ -10,7 +10,7 @@ describe('App', () => {
     TestBed.configureTestingModule({
       imports: imports,
       declarations: declarations,
-      providers: [],
+      providers: providers,
     });
   });
 
