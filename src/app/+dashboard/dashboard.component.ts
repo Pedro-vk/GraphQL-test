@@ -56,6 +56,17 @@ export class DashboardComponent implements OnInit {
     } catch (e) { }
   }
 
+  updateStatus (status: Status) {
+    let newStatus: StatusStatus;
+    switch (status.status) {
+      default:
+      case 'WAITING': return;
+      case 'STARTED': newStatus = 'STOPPED'; break;
+      case 'STOPPED': newStatus = 'STARTED'; break;
+    }
+    this.clusterService.updateStatus(status.id, newStatus);
+  }
+
   private getAllTags(): void {
     this.clusterService
       .getAllTags()

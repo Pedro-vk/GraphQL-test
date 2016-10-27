@@ -34,6 +34,18 @@ export class ClusterService {
     });
   }
 
+  updateStatus(statusId: string, status: StatusStatus): void {
+    this.updateStatusMutation(statusId, 'WAITING');
+    setTimeout(() => this.updateStatusMutation(statusId, status), 500 + 3000 * Math.random());
+  }
+
+  private updateStatusMutation(statusId: string, status: StatusStatus): void {
+    this.apollo.mutate({
+      mutation: queries.updateStatus,
+      variables: queries.updateStatus.variables(statusId, status),
+    });
+  }
+
   private initNodesPolling(): void {
     this.queryPolling = this.apollo.watchQuery({
         query: queries.getAllNodes,

@@ -45,6 +45,10 @@
   </pgp-sidebar>
 
   <div class="dashboard__content">
-    <pgp-node [details]="node" *ngFor="let node of clusterNodeFilteredSubscription | async; let i = index"></pgp-node>
+    <pgp-node
+      [details]="node"
+      (statusChange)="updateStatus($event)"
+      *ngFor="let node of clusterNodeFilteredSubscription | async; let i = index">
+    </pgp-node>
   </div>
 </div>

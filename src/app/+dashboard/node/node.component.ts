@@ -1,5 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, EventEmitter } from '@angular/core';
-import { Angular2Apollo } from 'angular2-apollo';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 import { queries, ClusterNode, Status, StatusStatus } from '../../shared';
 
@@ -11,25 +10,9 @@ import { queries, ClusterNode, Status, StatusStatus } from '../../shared';
 })
 export class NodeComponent {
   @Input() details: ClusterNode;
-
-  constructor(private apollo: Angular2Apollo) {}
+  @Output() statusChange: EventEmitter<Status> = new EventEmitter<Status>();
 
   toggleStatus(status: Status): void {
-    let newStatus: StatusStatus;
-    switch (status.status) {
-      default:
-      case 'WAITING': return;
-      case 'STARTED': newStatus = 'STOPPED'; break;
-      case 'STOPPED': newStatus = 'STARTED'; break;
-    }
-    this.toggleStatusMutation(status.id, 'WAITING');
-    setTimeout(() => this.toggleStatusMutation(status.id, newStatus), 500 + 3000 * Math.random());
-  }
-
-  toggleStatusMutation(statusId: string, status: StatusStatus): void {
-    this.apollo.mutate({
-      mutation: queries.updateStatus,
-      variables: queries.updateStatus.variables(statusId, status),
-    });
+    this.statusChange.emit(status);
   }
 }
