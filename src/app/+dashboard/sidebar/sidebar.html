@@ -1,4 +1,29 @@
 <div class="title">
+  Order by
+</div>
+<div class="attributes">
+  <div
+    class="attribute attribute--order"
+    *ngFor="let attr of orderByList; let i = index">
+
+    <label
+      class="checkbox"
+      (click)="orderBy = attr; orderByChange.emit(attr)">
+
+      <span
+        class="checkbox-element checkbox-element--circle"
+        [ngClass]="{
+          'checkbox-element--selected': orderBy === attr
+        }">
+      </span>
+
+      <span class="label">
+        {{attr}}
+      </span>
+    </label>
+  </div>
+</div>
+<div class="title">
   Filter
 </div>
 <div *ngFor="let filter of filters; let i = index">

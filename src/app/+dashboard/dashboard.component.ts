@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   projectAuthor: string = '';
   projectVersion: string = '';
   githubRepositoryUrl: string = '';
+  orderByFilter: Subject<any> = new Subject<any>();
   attributeFilter: Subject<any> = new Subject<any>();
   private tags: { [tag: string]: Tag; } = {};
   private clusterNodeSubscription: Observable<ClusterNode[]>;
@@ -68,11 +69,11 @@ export class DashboardComponent implements OnInit {
   private initNodesFiltering(): void {
     this.clusterNodeFilteredSubscription =
       this.clusterNodeSubscription
-        .combineLatest<any, ClusterNode[]>(this.attributeFilter, this.filterNodesWithAttributes)
+        .combineLatest<any, string, ClusterNode[]>(this.attributeFilter, this.orderByFilter, this.filterNodesWithAttributes)
         .share();
   }
 
-  private filterNodesWithAttributes(nodes: ClusterNode[], filter: any): ClusterNode[] {
+  private filterNodesWithAttributes(nodes: ClusterNode[], filter: any, orderBy: string): ClusterNode[] {
     if (Object.keys(filter).length === 0) {
       return nodes;
     }
@@ -81,7 +82,8 @@ export class DashboardComponent implements OnInit {
       .filter(simpleAttributeFilter('memory'))
       .filter(simpleAttributeFilter('location'))
       .filter(arrayAttributeFilter('tags', (_: Tag) => _.name))
-      .filter(arrayAttributeFilter('statuses', (_: Status) => _.service.name));
+      .filter(arrayAttributeFilter('statuses', (_: Status) => _.service.name))
+      .sort((a: ClusterNode, b: ClusterNode) => a[orderBy] > b[orderBy] ? 1 : -1);
 
     function simpleAttributeFilter(attr: string): (item: any) => boolean {
       return (item: any): boolean => {

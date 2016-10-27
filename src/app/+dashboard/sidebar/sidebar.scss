@@ -10,7 +10,12 @@
     color: get-color(n7);
     border-bottom: 1px solid get-color(n3);
     padding-bottom: 6px;
+    padding-top: 20px;
     font-weight: 300;
+
+    &:first-child {
+      padding-top: 0;
+    }
   }
   .filter {
     font-size: 18px;
@@ -18,15 +23,22 @@
     font-weight: normal;
     text-transform: capitalize;
     color: get-color(n8);
-    padding-bottom: 5px;
   }
   .attributes {
+    padding-top: 5px;
+
     .attribute {
       margin: 0 4px;
       padding-right: 0;
       font-size: 12px;
       height: 20px;
       line-height: 20px;
+
+      &--order {
+        .label {
+          text-transform: capitalize;
+        }
+      }
     }
   }
   .checkbox {
@@ -50,8 +62,14 @@
 
       &:hover {
         border: 1px solid get-color(n6);
+        box-shadow: inset 0 0 0px 2px get-color(n0);
       }
     }
+    .checkbox-element--circle {
+      border-radius: 5px;
+    }
+
+    .checkbox-element--selected,
     .checkbox-input:checked + .checkbox-element {
       background: get-color(n4);
     }

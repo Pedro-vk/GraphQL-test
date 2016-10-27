@@ -31,6 +31,15 @@
       'statuses': 'services'
     }"
     [filters]="attributeCounter | async"
+    [orderByList]="[
+      'name',
+      'localIp',
+      'cores',
+      'memory',
+      'location'
+    ]"
+    orderBy="name"
+    (orderByChange)="orderByFilter.next($event)"
     (appliedFiltersChange)="attributeFilter.next($event)">
   </pgp-sidebar>
 
