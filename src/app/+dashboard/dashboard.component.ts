@@ -56,7 +56,7 @@ export class DashboardComponent implements OnInit {
     } catch (e) { }
   }
 
-  updateStatus (status: Status) {
+  updateStatus (status: Status): void {
     let newStatus: StatusStatus;
     switch (status.status) {
       default:
