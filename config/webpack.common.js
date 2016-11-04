@@ -9,7 +9,7 @@ var SassLintPlugin = require('sasslint-webpack-plugin');
 module.exports = {
   entry: {
     'polyfills': './src/polyfills.ts',
-    'vendor': './src/vendor.ts',
+    'frameworks': './src/frameworks.ts',
     'app': './src/main.ts'
   },
 
@@ -58,7 +58,7 @@ module.exports = {
       glob: 'src/**/*.scss'
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      name: ['app', 'vendor', 'polyfills']
+      name: ['app', 'frameworks', 'polyfills']
     }),
     new CopyWebpackPlugin([{
       from: 'src/assets',
