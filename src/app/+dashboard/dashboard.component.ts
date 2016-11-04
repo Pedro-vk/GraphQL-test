@@ -15,15 +15,14 @@ export class DashboardComponent implements OnInit {
   projectAuthor: string = '';
   projectVersion: string = '';
   githubRepositoryUrl: string = '';
-  orderByFilter: Subject<any> = new Subject<any>();
+  orderByFilter: Subject<any> = new Subject<string>();
   attributeFilter: Subject<any> = new Subject<any>();
-  searchFilter: Subject<any> = new Subject<any>();
+  searchFilter: Subject<any> = new Subject<string>();
   private tags: { [tag: string]: Tag; } = {};
   private clusterNodeSubscription: Observable<ClusterNode[]>;
   private clusterNodeFilteredSubscription: Observable<ClusterNode[]>;
   private attributeCounter: Observable<any>;
-
-  constructor(private clusterService: ClusterService) {}
+  constructor(private clusterService: ClusterService) { }
 
   ngOnInit(): void {
     this.clusterNodeSubscription = this.clusterService.getClusterNodeSubscription();

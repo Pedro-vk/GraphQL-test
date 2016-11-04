@@ -4,7 +4,9 @@ import { createNewHosts, removeNgStyles, createInputTransfer, setInputValues } f
 import { ClusterService } from './app/shared/services';
 import { ClusterNode } from './app/shared';
 
-export let clusterState: ClusterNode[];
+let clusterState: ClusterNode[];
+
+export const getClusterState = (): ClusterNode[] => clusterState;
 
 export function hotBootstrap(module: any, bootstrap: () => Promise<NgModuleRef<any>>) {
   let moduleRef: NgModuleRef<any>;
@@ -15,16 +17,15 @@ export function hotBootstrap(module: any, bootstrap: () => Promise<NgModuleRef<a
   module.hot.accept();
 
   module.hot.dispose(() => {
-
     const appRef: ApplicationRef = moduleRef.injector.get(ApplicationRef);
     const clusterService: ClusterService = moduleRef.injector.get(ClusterService);
 
-    clusterState = clusterService.getClusterNodeLastValue()
+    clusterState = clusterService.getClusterNodeLastValue();
     clusterService.destroy();
 
     const restoreInputValues = createInputTransfer();
 
-    setTimeout(() => restoreInputValues(), 3000);
+    setTimeout(() => restoreInputValues(), 2000);
 
     const cmpLocations = appRef.components.map(cmp => cmp.location.nativeElement);
     const disposeOldHosts = createNewHosts(cmpLocations);

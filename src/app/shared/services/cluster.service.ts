@@ -5,10 +5,11 @@ import { Observable, Subject } from 'rxjs';
 
 import { ClusterNode, Status, StatusStatus, Tag } from '../interfaces';
 import { queries } from '../';
+import { getClusterState } from '../../../hmr';
 
 @Injectable()
 export class ClusterService {
-  private clusterNodeLastValue: ClusterNode[];
+  private clusterNodeLastValue: ClusterNode[] = getClusterState();
   private nodesPolling: ApolloQueryObservable<ApolloQueryResult>;
   private statusPolling: ApolloQueryObservable<ApolloQueryResult>;
   private clusterNodeSubscription: Subject<ClusterNode[]> = new Subject<ClusterNode[]>();
@@ -29,7 +30,12 @@ export class ClusterService {
   }
 
   getClusterNodeSubscription(): Observable<ClusterNode[]> {
-    return this.clusterNodeObservable;
+    if (getClusterState()) {
+      return this.clusterNodeObservable
+        .startWith<ClusterNode[]>(getClusterState());
+    } else {
+      return this.clusterNodeObservable;
+    }
   }
 
   getAllTags(): Promise<Tag[]> {
