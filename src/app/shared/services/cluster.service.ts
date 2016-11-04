@@ -8,13 +8,24 @@ import { queries } from '../';
 
 @Injectable()
 export class ClusterService {
-  private queryPolling: ApolloQueryObservable<ApolloQueryResult>;
+  private clusterNodeLastValue: ClusterNode[];
+  private nodesPolling: ApolloQueryObservable<ApolloQueryResult>;
+  private statusPolling: ApolloQueryObservable<ApolloQueryResult>;
   private clusterNodeSubscription: Subject<ClusterNode[]> = new Subject<ClusterNode[]>();
   private clusterNodeObservable: Observable<ClusterNode[]> = this.clusterNodeSubscription.share<ClusterNode[]>();
 
   constructor(private apollo: Angular2Apollo) {
     this.initNodesPolling();
     this.initStatusPolling();
+  }
+
+  destroy() {
+    this.nodesPolling.stopPolling();
+    this.statusPolling.stopPolling();
+  }
+
+  getClusterNodeLastValue(): ClusterNode[] {
+    return this.clusterNodeLastValue;
   }
 
   getClusterNodeSubscription(): Observable<ClusterNode[]> {
@@ -47,22 +58,24 @@ export class ClusterService {
   }
 
   private initNodesPolling(): void {
-    this.queryPolling = this.apollo.watchQuery({
+    this.nodesPolling = this.apollo.watchQuery({
         query: queries.getAllNodes,
         pollInterval: 30 * 1000,
       });
 
-    this.queryPolling
+    this.nodesPolling
       .subscribe((_: ApolloQueryResult) => {
         this.clusterNodeSubscription.next(_.data.nodes);
+        this.clusterNodeLastValue = _.data.nodes;
       });
   }
 
   private initStatusPolling(): void {
-    this.apollo.watchQuery({
+    this.statusPolling = this.apollo.watchQuery({
       query: queries.getAllStatus,
       pollInterval: 5 * 1000,
-    })
+    });
+    this.statusPolling
       .subscribe(_ => {});
   }
 }
