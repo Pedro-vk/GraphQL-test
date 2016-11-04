@@ -2,6 +2,7 @@ var webpackMerge = require('webpack-merge');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var commonConfig = require('./webpack.common.js');
 var helpers = require('./helpers');
+var DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = webpackMerge(commonConfig, {
   devtool: 'source-map',
@@ -14,7 +15,8 @@ module.exports = webpackMerge(commonConfig, {
   },
 
   plugins: [
-    new ExtractTextPlugin('[name].css')
+    new ExtractTextPlugin('[name].css'),
+    new DashboardPlugin(),
   ],
 
   tslint: {
