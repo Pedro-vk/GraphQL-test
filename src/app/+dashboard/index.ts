@@ -1,4 +1,4 @@
-import { NodeComponent } from './node';
+import { NodeComponent } from './nodes';
 import { SidebarComponent } from './sidebar';
 import { DashboardComponent } from './dashboard.component';
 

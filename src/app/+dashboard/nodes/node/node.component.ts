@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
-import { queries, ClusterNode, Status, StatusStatus } from '../../shared';
+import { queries, ClusterNode, Status, StatusStatus } from '../../../shared';
 
 @Component({
   selector: 'pgp-node',
