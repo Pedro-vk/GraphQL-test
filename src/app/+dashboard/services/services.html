@@ -1,0 +1,19 @@
+<div
+  *ngFor="let service of services; let i = index">
+
+  <div>
+    {{service.name}}
+  </div>
+  <div>
+    <div
+      *ngFor="let status of service.statuses; let i = index">
+
+      [<span>
+        {{status.status}}
+      </span>]
+      <span>
+        {{status.clusternode.name}}
+      </span>
+    </div>
+  </div>
+</div>
