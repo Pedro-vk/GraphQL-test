@@ -30,6 +30,32 @@ const getAllNodes = gql`
   }
 `;
 
+const getallServices = gql`
+  query getAllServices {
+    sevices: allServices {
+      id
+      name
+      statuses {
+        id
+        status
+        clusternode {
+          id
+          name
+          localIp
+          cores
+          memory
+          location
+          tags {
+            id
+            name
+            colornumber
+          }
+        }
+      }
+    }
+  }
+`;
+
 const getAllTags = gql`
   query getAllTags {
     tags: allTags {
@@ -77,6 +103,7 @@ updateStatus.variables = (statusId: String, status: String): any => ({statusId, 
 
 export const queries = {
   getAllNodes,
+  getallServices,
   getAllTags,
   getAllStatus,
   createStatus,
