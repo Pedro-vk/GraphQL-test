@@ -27,7 +27,7 @@ const query = gql`
 @Component({
   selector: 'pgp-example',
   template: require('./example.html'),
-  styles: [require('./example.scss')],
+  styles: [require('../app.scss'), require('./example.scss')],
 })
 export class ExampleComponent implements OnInit {
   services: Observable<Service[]>;
