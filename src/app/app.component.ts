@@ -2,9 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from '@
 
 @Component({
   selector: 'pgp-app',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  template: '<pgp-dashboard></pgp-dashboard>',
+  template: '<pgp-example></pgp-example>',
   styles: [require('./app.scss')],
 })
 export class AppComponent { }

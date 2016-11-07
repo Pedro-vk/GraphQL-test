@@ -1,0 +1,21 @@
+h1 {
+  font-size: 2em;
+  font-weight: 300;
+  padding-bottom: 10px;
+}
+strong {
+  font-weight: 500;
+
+  &:after {
+    opacity: .2;
+    content: ' - ';
+  }
+}
+span {
+  font-weight: 300;
+}
+
+:host {
+  display: block;
+  padding: 20px;
+}
