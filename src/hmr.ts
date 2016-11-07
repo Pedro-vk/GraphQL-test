@@ -8,11 +8,11 @@ let clusterState: ClusterNode[];
 
 export const getClusterState = (): ClusterNode[] => clusterState;
 
-export function hotBootstrap(module: any, bootstrap: () => Promise<NgModuleRef<any>>) {
+export function hotBootstrap(module: any, bootstrap: () => Promise<NgModuleRef<any>>): void {
   let moduleRef: NgModuleRef<any>;
 
   bootstrap()
-    .then(mod => moduleRef = mod)
+    .then(mod => moduleRef = mod);
 
   module.hot.accept();
 

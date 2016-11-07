@@ -20,7 +20,7 @@ export class ClusterService {
     this.initStatusPolling();
   }
 
-  destroy() {
+  destroy(): void {
     this.nodesPolling.stopPolling();
     this.statusPolling.stopPolling();
   }

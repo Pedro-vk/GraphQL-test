@@ -33,9 +33,9 @@ export class ServicesComponent {
         node.statuses
           .forEach((status: Status) => {
             let service = status.service;
-            let newNode: ClusterNode = Object.assign({}, node, {statuses: null});
+            let newNode: ClusterNode = Object.assign({}, node, {statuses: undefined});
             let newStatus: Status = Object.assign({}, status, {
-              service: null,
+              service: undefined,
               clusternode: newNode,
             });
 
@@ -44,7 +44,7 @@ export class ServicesComponent {
               services[service.id].statuses = [];
             }
             services[service.id].statuses.push(newStatus);
-          })
+          });
       });
 
     return getValues(services);
