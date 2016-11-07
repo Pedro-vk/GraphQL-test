@@ -1,12 +1,14 @@
-<h1>Services</h1>
-<div *ngFor="let service of services | async">
-  <strong>{{service.name}}</strong>
-  <span>{{service.description}}</span>
-  <div *ngFor="let status of service.statuses">
-    <span class="status--{{status.status.toLowerCase()}}">
-      [{{status.status}}]
-    </span>
-    ({{status.clusternode?.location}})
-    {{status.clusternode?.name}}
+<div class="services-list">
+  <h1>Services</h1>
+  <div *ngFor="let service of services | async">
+    <strong>{{service.name}}</strong>
+    <span>{{service.description}}</span>
+    <div *ngFor="let status of service.statuses">
+      <span class="status--{{status.status.toLowerCase()}}">
+        [{{status.status}}]
+      </span>
+      ({{status.clusternode?.location}})
+      {{status.clusternode?.name}}
+    </div>
   </div>
 </div>

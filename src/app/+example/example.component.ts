@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 
 import { ClusterNode, Status, StatusStatus, Tag } from '../shared/interfaces';
 import { Observable, Subject } from 'rxjs';
@@ -26,6 +27,7 @@ const query = gql`
 
 @Component({
   selector: 'pgp-example',
+  encapsulation: ViewEncapsulation.None,
   template: require('./example.html'),
   styles: [require('../app.scss'), require('./example.scss')],
 })
