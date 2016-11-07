@@ -5,6 +5,8 @@ h1 {
 }
 strong {
   font-weight: 500;
+  display: inline-block;
+  margin: 20px 0 6px;
 
   &:after {
     opacity: .2;
@@ -13,6 +15,25 @@ strong {
 }
 span {
   font-weight: 300;
+}
+div > div {
+  font-family: monospace;
+  font-size: 10px;
+}
+.status {
+  $stopped: #ff0000;
+  $waiting: #ffa500;
+  $started: #008000;
+
+  &--stopped {
+    color: $stopped;
+  }
+  &--waiting {
+    color: $waiting;
+  }
+  &--started {
+    color: $started;
+  }
 }
 
 :host {

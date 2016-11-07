@@ -11,8 +11,15 @@ import { Service } from '../shared';
 const query = gql`
   query getServices {
     services: allServices {
-      name,
+      name
       description
+      statuses {
+        status
+        clusternode {
+          name
+          location
+        }
+      }
     }
   }
 `;
@@ -31,7 +38,7 @@ export class ExampleComponent implements OnInit {
     this.services = this.apollo
       .watchQuery({
         query: query,
-        pollInterval: 3000,
+        pollInterval: 500,
       })
       .map((_: any) => _.data.services);
   }
