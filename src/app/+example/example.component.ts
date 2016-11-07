@@ -23,18 +23,16 @@ const query = gql`
   styles: [require('./example.scss')],
 })
 export class ExampleComponent implements OnInit {
-  services: Service[] = [];
+  services: Observable<Service[]>;
 
   constructor(private apollo: Angular2Apollo) { }
 
   ngOnInit(): void {
-    this.apollo
-      .query({
+    this.services = this.apollo
+      .watchQuery({
         query: query,
+        pollInterval: 3000,
       })
-      .then((response: any) => {
-        this.services = response.data.services;
-        console.log(response.data)
-      });
+      .map((_: any) => _.data.services);
   }
 }
