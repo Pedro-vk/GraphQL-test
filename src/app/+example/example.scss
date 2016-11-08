@@ -19,6 +19,8 @@ span {
 .services-list div > div {
   font-family: monospace;
   font-size: 10px;
+  display: table;
+  cursor: pointer;
 }
 .status {
   $stopped: #ff0000;

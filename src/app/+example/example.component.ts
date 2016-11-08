@@ -1,8 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 
 import { ClusterNode, Status, StatusStatus, Tag } from '../shared/interfaces';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Angular2Apollo } from 'angular2-apollo';
 import gql from 'graphql-tag';
@@ -12,14 +11,34 @@ import { Service } from '../shared';
 const query = gql`
   query getServices {
     services: allServices {
+      id
       name
       description
       statuses {
+        id
         status
         clusternode {
+          id
           name
           location
         }
+      }
+    }
+  }
+`;
+
+const mutation = gql`
+  mutation updateStatus($id: ID!, $status: STATUS_STATUS!) {
+    updateStatus(id: $id, status: $status) {
+      id
+      status
+      clusternode {
+        id
+        name
+      }
+      service {
+        id
+        name
       }
     }
   }
@@ -40,8 +59,19 @@ export class ExampleComponent implements OnInit {
     this.services = this.apollo
       .watchQuery({
         query: query,
-        pollInterval: 500,
+        pollInterval: 500
       })
       .map((_: any) => _.data.services);
+  }
+
+  changeStatus(status: Status) {
+    this.apollo
+      .mutate({
+        mutation: mutation,
+        variables: {
+          id: status.id,
+          status: 'STARTED',
+        }
+      });
   }
 }

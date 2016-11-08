@@ -9,7 +9,8 @@ import { ExampleComponent }  from './+example/example.component';
 
 
 const client = new ApolloClient({
-  networkInterface: createNetworkInterface('https://api.graph.cool/simple/v1/ciu5o9tpz0jg101483bjlp75g')
+  networkInterface: createNetworkInterface('https://api.graph.cool/simple/v1/ciu5o9tpz0jg101483bjlp75g'),
+  dataIdFromObject: (_: any): any => _.id,
 });
 
 @NgModule({
