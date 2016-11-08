@@ -59,18 +59,19 @@ export class ExampleComponent implements OnInit {
     this.services = this.apollo
       .watchQuery({
         query: query,
-        pollInterval: 500
+        pollInterval: 10000
       })
       .map((_: any) => _.data.services);
   }
 
   changeStatus(status: Status) {
+    let newStatus = status.status === 'STARTED' ? 'STOPPED' : 'STARTED';
     this.apollo
       .mutate({
         mutation: mutation,
         variables: {
           id: status.id,
-          status: 'STARTED',
+          status: newStatus,
         }
       });
   }
