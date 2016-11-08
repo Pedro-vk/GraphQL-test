@@ -16,7 +16,7 @@ strong {
 span {
   font-weight: 300;
 }
-div > div {
+.services-list div > div {
   font-family: monospace;
   font-size: 10px;
 }
@@ -36,7 +36,7 @@ div > div {
   }
 }
 
-:host {
+.services-list {
   display: block;
   padding: 20px;
 }
