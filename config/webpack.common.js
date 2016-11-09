@@ -71,10 +71,8 @@ module.exports = {
       to: 'assets'
     }]),
     new HtmlWebpackPlugin({
-      imports: {
-        graphqlLogo: require('../src/assets/images/graphql-logo.svg'),
-      },
-      template: 'src/index.ejs'
+      include: _ => require(`${__dirname}/../src/${_}`),
+      template: 'src/index.ejs',
     })
   ]
 };
