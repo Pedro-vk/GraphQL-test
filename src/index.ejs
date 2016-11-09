@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>GraphQL test</title>
     <base href="/">
-    <link rel="shortcut icon" type="image/png"  href="/src/assets/images/favicon.png">
+    <link rel="shortcut icon" type="image/png"  href="/assets/images/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400|Cutive+Mono" rel="stylesheet">
   </head>
   <body>
-    <pgp-app>Loading Angular 2...</pgp-app>
+    <pgp-app>
+      <%= htmlWebpackPlugin.options.imports.graphqlLogo %>
+    </pgp-app>
   </body>
 </html>

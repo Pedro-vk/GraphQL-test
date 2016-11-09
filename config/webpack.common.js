@@ -6,6 +6,12 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
 var SassLintPlugin = require('sasslint-webpack-plugin');
 
+var fs = require('fs');
+
+require.extensions['.svg'] = function (module, filename) {
+  module.exports = fs.readFileSync(filename, 'utf8');
+};
+
 module.exports = {
   entry: {
     'polyfills': './src/polyfills.ts',
@@ -65,7 +71,10 @@ module.exports = {
       to: 'assets'
     }]),
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      imports: {
+        graphqlLogo: require('../src/assets/images/graphql-logo.svg'),
+      },
+      template: 'src/index.ejs'
     })
   ]
 };
