@@ -1,3 +1,39 @@
 body {
-  background: gray;
+  background: #fbfbfb;
+}
+.loading {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: 'Roboto', helvetica, sans-serif;
+}
+.loading__text {
+  font-weight: 300;
+  font-size: 18px;
+  padding-top: 20px;
+  color: #3a3a3a;
+}
+
+.graphql-logo {
+  width: 120px;
+}
+.graphql-logo * {
+  fill: #999999;
+}
+.graphql-logo .graphql-logo__circles * {
+  fill: #888888;
+}
+.graphql-logo .graphql-logo__center * {
+  animation: center .5s alternate infinite;
+}
+
+@keyframes center {
+  from {
+    fill: #999999;
+  }
+  from {
+    fill: #555555;
+  }
 }
