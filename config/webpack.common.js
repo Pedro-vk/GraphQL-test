@@ -8,9 +8,12 @@ var SassLintPlugin = require('sasslint-webpack-plugin');
 
 var fs = require('fs');
 
-require.extensions['.svg'] = function (module, filename) {
+var loadAsString = function (module, filename) {
   module.exports = fs.readFileSync(filename, 'utf8');
 };
+
+require.extensions['.svg'] = loadAsString;
+require.extensions['.css'] = loadAsString;
 
 module.exports = {
   entry: {
