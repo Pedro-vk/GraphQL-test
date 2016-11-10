@@ -1,61 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>GraphQL test</title>
-    <base href="/">
-    <link rel="shortcut icon" type="image/png"  href="/assets/images/favicon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400|Cutive+Mono" rel="stylesheet">
-  </head>
-  <body>
-    <pgp-app>
-      <style type="text/css">
-        body {
-  background: #fbfbfb;
-}
-.loading {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  font-family: 'Roboto', helvetica, sans-serif;
-}
-.loading__text {
-  font-weight: 300;
-  font-size: 18px;
-  padding-top: 20px;
-  color: #3a3a3a;
-}
-
-.graphql-logo {
-  width: 120px;
-}
-.graphql-logo * {
-  fill: #999999;
-}
-.graphql-logo .graphql-logo__circles * {
-  fill: #888888;
-}
-.graphql-logo .graphql-logo__center * {
-  animation: center .5s alternate infinite;
-}
-
-@keyframes center {
-  from {
-    fill: #999999;
-  }
-  from {
-    fill: #555555;
-  }
-}
-
-      </style>
-      <div class="loading">
-        <div class="loading__logo">
-          <!-- From: https://github.com/facebook/graphql/blob/master/resources/GraphQL%20Logo.svg -->
+<!-- From: https://github.com/facebook/graphql/blob/master/resources/GraphQL%20Logo.svg -->
 <svg class="graphql-logo" version="1.1" id="GraphQL_Logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 400 400" enable-background="new 0 0 400 400" xml:space="preserve">
   <g>
     <g class="graphql-logo__center">
@@ -81,11 +24,3 @@
     </g>
   </g>
 </svg>
-
-        </div>
-        <div class="loading__text">
-          Loading GraphQL test app.
-        </div>
-      </div>
-  <script type="text/javascript" src="/polyfills.f325cc9dbe368ea72c31.js"></script><script type="text/javascript" src="/frameworks.f325cc9dbe368ea72c31.js"></script><script type="text/javascript" src="/app.f325cc9dbe368ea72c31.js"></script></body>
-</html>
