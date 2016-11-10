@@ -16,7 +16,7 @@ if (process.env.ENV === 'production') {
 function bootstrap(): Promise<NgModuleRef<any>> {
   return platformBrowserDynamic().bootstrapModule(AppModule);
 }
-function afterLoading(onLoaded: () => void) {
+function afterLoading(onLoaded: () => void): void {
   setTimeout(() => {
     let loadingElement = document.querySelector('.loading');
     if (loadingElement) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewEncapsulation, AfterViewInit } from '@angular/core';
 
 import { onInitAnimation } from './app.animations';
 
@@ -12,7 +12,7 @@ import { onInitAnimation } from './app.animations';
     onInitAnimation,
   ],
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   visibilityState: string = 'initial';
 
   ngAfterViewInit(): void {

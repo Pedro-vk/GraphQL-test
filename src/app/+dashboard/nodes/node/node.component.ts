@@ -16,7 +16,7 @@ export class NodeComponent {
     this.statusChange.emit(status);
   }
 
-  trackById(index: number, object: GraphCoolObject) {
+  trackById(index: number, object: GraphCoolObject): any {
     return object.id || undefined;
   }
 }

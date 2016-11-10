@@ -16,7 +16,7 @@ export class NodesComponent {
     this.statusChange.emit(status);
   }
 
-  trackNode(index: number, node: ClusterNode) {
+  trackNode(index: number, node: ClusterNode): any {
     return node.id || undefined;
   }
 }
