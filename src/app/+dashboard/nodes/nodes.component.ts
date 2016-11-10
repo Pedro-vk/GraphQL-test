@@ -15,4 +15,8 @@ export class NodesComponent {
   toggleStatus(status: Status): void {
     this.statusChange.emit(status);
   }
+
+  trackNode(index: number, node: ClusterNode) {
+    return node.id || undefined;
+  }
 }

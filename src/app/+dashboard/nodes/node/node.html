@@ -13,7 +13,7 @@
 <div class="tags">
   <div
     class="tag tag-{{tag.colornumber}}"
-    *ngFor="let tag of details.tags | pgpOrderByOnSidebar : 'colornumber'; let i = index">
+    *ngFor="let tag of details.tags | pgpOrderByOnSidebar : 'colornumber'; let i = index; trackBy: trackById">
 
     {{tag.name}}
   </div>
@@ -22,7 +22,7 @@
   <div
     (click)="toggleStatus(status)"
     class="service service-{{status.status}}"
-    *ngFor="let status of details.statuses; let i = index">
+    *ngFor="let status of details.statuses; let i = index; trackBy: trackById">
 
     {{status.service.name}}
   </div>

@@ -1,5 +1,5 @@
 <pgp-node
   [details]="node"
   (statusChange)="toggleStatus($event)"
-  *ngFor="let node of nodes; let i = index">
+  *ngFor="let node of nodes; let i = index; trackBy: trackNode">
 </pgp-node>

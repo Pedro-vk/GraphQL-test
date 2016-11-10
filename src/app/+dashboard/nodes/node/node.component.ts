@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
-import { queries, ClusterNode, Status, StatusStatus } from '../../../shared';
+import { queries, ClusterNode, Status, StatusStatus, GraphCoolObject } from '../../../shared';
 
 @Component({
   selector: 'pgp-node',
@@ -14,5 +14,9 @@ export class NodeComponent {
 
   toggleStatus(status: Status): void {
     this.statusChange.emit(status);
+  }
+
+  trackById(index: number, object: GraphCoolObject) {
+    return object.id || undefined;
   }
 }
