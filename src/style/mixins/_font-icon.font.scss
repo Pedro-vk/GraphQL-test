@@ -29,6 +29,18 @@
   }
 }
 
+@mixin font-icon-puzzle {
+  content: "\e60a";
+}
+@mixin font-icon-pc {
+  content: "\e627";
+}
+@mixin font-icon-chip {
+  content: "\e62d";
+}
+@mixin font-icon-nodes {
+  content: "\e63a";
+}
 @mixin font-icon-search {
   content: "\e036";
 }
@@ -85,6 +97,18 @@
 @mixin font-icon-includes {
   @include font-icon-class;
 
+  .icon-puzzle:before {
+    @include font-icon-puzzle;
+  }
+  .icon-pc:before {
+    @include font-icon-pc;
+  }
+  .icon-chip:before {
+    @include font-icon-chip;
+  }
+  .icon-nodes:before {
+    @include font-icon-nodes;
+  }
   .icon-search:before {
     @include font-icon-search;
   }
