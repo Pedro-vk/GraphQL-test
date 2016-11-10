@@ -8,6 +8,11 @@ body {
   transform: translate(-50%, -50%);
   text-align: center;
   font-family: 'Roboto', helvetica, sans-serif;
+  transition: all .2s ease;
+  opacity: 1;
+}
+.loading--hidden {
+  opacity: 0;
 }
 .loading__text {
   font-weight: 300;
