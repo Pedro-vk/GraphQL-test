@@ -10,20 +10,20 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400|Cutive+Mono" rel="stylesheet">
   </head>
   <body>
-    <pgp-app>
+    <pgp-app></pgp-app>
+    <div class="loading">
+      <div class="loading__logo">
+        <%= htmlWebpackPlugin.options.include('assets/images/graphql-logo.svg') %>
+      </div>
+      <div class="loading__text">
+        Loading GraphQL test app.
+      </div>
       <script type="text/javascript">
         window.loadingStart = Date.now();
       </script>
       <style type="text/css">
         <%= htmlWebpackPlugin.options.include('style/loading.css') %>
       </style>
-      <div class="loading">
-        <div class="loading__logo">
-          <%= htmlWebpackPlugin.options.include('assets/images/graphql-logo.svg') %>
-        </div>
-        <div class="loading__text">
-          Loading GraphQL test app.
-        </div>
-      </div>
+    </div>
   </body>
 </html>

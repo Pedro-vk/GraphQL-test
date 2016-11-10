@@ -8,7 +8,6 @@ import { AppModule } from './app';
 import { hotBootstrap } from './hmr';
 
 const minLoadingDelay: number = 2000;
-const loadingHideTransition: number = 210;
 
 if (process.env.ENV === 'production') {
   enableProdMode();
@@ -23,7 +22,7 @@ function afterLoading(onLoaded: () => void) {
     if (loadingElement) {
       loadingElement.classList.add('loading--hidden');
     }
-    setTimeout(onLoaded, loadingHideTransition);
+    onLoaded();
   }, minLoadingDelay - Date.now() + (<any>window).loadingStart);
 };
 
