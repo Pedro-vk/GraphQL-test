@@ -11,6 +11,9 @@
   </head>
   <body>
     <pgp-app>
+      <script type="text/javascript">
+        window.loadingStart = Date.now();
+      </script>
       <style type="text/css">
         body {
   background: #fbfbfb;
@@ -22,6 +25,11 @@
   transform: translate(-50%, -50%);
   text-align: center;
   font-family: 'Roboto', helvetica, sans-serif;
+  transition: all .2s ease;
+  opacity: 1;
+}
+.loading--hidden {
+  opacity: 0;
 }
 .loading__text {
   font-weight: 300;
@@ -87,5 +95,5 @@
           Loading GraphQL test app.
         </div>
       </div>
-  <script type="text/javascript" src="/polyfills.f325cc9dbe368ea72c31.js"></script><script type="text/javascript" src="/frameworks.f325cc9dbe368ea72c31.js"></script><script type="text/javascript" src="/app.f325cc9dbe368ea72c31.js"></script></body>
+  <script type="text/javascript" src="/polyfills.703d9060d18f395eaf94.js"></script><script type="text/javascript" src="/frameworks.703d9060d18f395eaf94.js"></script><script type="text/javascript" src="/app.703d9060d18f395eaf94.js"></script></body>
 </html>
