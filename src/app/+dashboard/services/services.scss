@@ -1,6 +1,8 @@
 @import '../../../style/index';
 
 $services__node-status-circle---size: 8px;
+$services---max-width: 600px;
+$services--big---max-width: 760px;
 
 @mixin services() {
   @include font-family;
@@ -11,10 +13,10 @@ $services__node-status-circle---size: 8px;
   padding: 0 10px;
   display: table;
   width: 100%;
-  max-width: 600px;
+  max-width: $services---max-width;
 
-  &:last-child {
-    margin-bottom: 0;
+  @media (min-width: $services--big---max-width + 400px) {
+    max-width: $services--big---max-width;
   }
 
   .title {
@@ -67,6 +69,12 @@ $services__node-status-circle---size: 8px;
     }
     &--mongodb:before {
       @include font-icon-mongodb;
+    }
+  }
+
+  .node-list {
+    @media (min-width: $services--big---max-width + 400px) {
+      column-count: 2;
     }
   }
 
