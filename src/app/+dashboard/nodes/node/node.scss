@@ -105,5 +105,6 @@
 }
 
 :host {
+  @include component;
   @include node();
 }

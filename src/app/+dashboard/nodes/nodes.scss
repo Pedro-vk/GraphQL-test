@@ -1,0 +1,5 @@
+@import '../../../style/index';
+
+:host {
+  @include component;
+}

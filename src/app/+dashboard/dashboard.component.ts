@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { Observable, Subject } from 'rxjs';
 
+import { onShowAnimation } from './dashboard.animations';
+
 import { ClusterNode, Status, StatusStatus, Tag } from '../shared/interfaces';
 import { queries, AttributeCounter } from '../shared';
 import { ClusterService } from '../shared/services';
@@ -12,6 +14,7 @@ import { ToggleAllService } from './services';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: require('./dashboard.html'),
   styles: [require('./dashboard.scss')],
+  animations: [onShowAnimation],
 })
 export class DashboardComponent implements OnInit {
   projectAuthor: string = '';

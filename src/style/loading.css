@@ -1,8 +1,8 @@
 .loading {
   position: fixed;
+  transform: translate(-50%, -50%) scale(1);
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%) scale(1);
   text-align: center;
   font-family: 'Roboto', helvetica, sans-serif;
   transition: all .2s ease;
@@ -11,7 +11,7 @@
 }
 .loading--hidden {
   opacity: 0;
-  transform: translate(-50%, -50%) scale(.8);
+  transform: translate(-50%, -50%) scale(.6);
 }
 .loading__text {
   font-weight: 300;

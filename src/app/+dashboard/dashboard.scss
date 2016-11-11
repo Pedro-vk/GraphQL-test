@@ -1,6 +1,7 @@
 @import '../../style/index';
 
 $dashboard__header---height: 72px;
+$dashboard__sidebar---width: 240px;
 
 .dashboard {
   position: fixed;
@@ -64,7 +65,7 @@ $dashboard__header---height: 72px;
     @extend %webkit-overflow;
 
     max-height: 100%;
-    width: 200px;
+    width: $dashboard__sidebar---width;
     padding: 20px;
     background: get-color(n1);
     border-right: 1px solid get-color(n2);
@@ -145,5 +146,10 @@ $dashboard__header---height: 72px;
     padding: 10px;
     overflow: auto;
     height: 100%;
+    position: absolute;
+    left: $dashboard__sidebar---width;
+    bottom: 0;
+    right: 0;
+    top: 0;
   }
 }
