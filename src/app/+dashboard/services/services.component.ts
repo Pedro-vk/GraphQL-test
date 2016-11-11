@@ -56,18 +56,18 @@ export class ServicesComponent {
               clusternode: newNode,
             });
 
-            if (!services[service.id]) {
-              services[service.id] = service;
-              services[service.id].statuses = [];
+            if (!services[service.name]) {
+              services[service.name] = service;
+              services[service.name].statuses = [];
             }
-            services[service.id].statuses.push(newStatus);
+            services[service.name].statuses.push(newStatus);
           });
       });
 
-    return getValues(services);
+    return getValuesOrdered(services);
 
-    function getValues(_: any): any[] {
-      return Object.keys(_).map((key) => _[key]);
+    function getValuesOrdered(_: any): any[] {
+      return Object.keys(_).sort().map((key) => _[key]);
     }
   }
 }
