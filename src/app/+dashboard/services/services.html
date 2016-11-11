@@ -1,19 +1,23 @@
 <div
-  *ngFor="let service of services; let i = index">
+  class="service"
+  *ngFor="let service of services; let i = index; trackBy: trackById">
 
-  <div>
+  <div class="title title--{{service.name.toLowerCase()}}">
     {{service.name}}
   </div>
   <div>
     <div
-      *ngFor="let status of service.statuses; let i = index">
+      class="node node--{{status.status}}"
+      (click)="toggleStatus(status)"
+      *ngFor="let status of service.statuses; let i = index; trackBy: trackById">
 
-      [<span>
-        {{status.status}}
-      </span>]
-      <span>
-        {{status.clusternode.name}}
+      <span class="info info--cores">{{status.clusternode?.cores}}</span>
+      <span class="info info--memory">{{status.clusternode?.memory}}</span>
+      <span class="name">
+        {{status.clusternode?.name}}
       </span>
+      <span class="ip">{{status.clusternode?.localIp}}</span><!--
+   --><span class="location">{{status.clusternode?.location}}</span>
     </div>
   </div>
 </div>
