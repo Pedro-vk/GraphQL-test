@@ -4,6 +4,19 @@
 
   <div class="title title--{{service.name.toLowerCase()}}">
     {{service.name}}
+
+    <div
+      (click)="toggleAllStatus(service, false)"
+      class="toggle-all">
+
+      Stop all
+    </div>
+    <div
+      (click)="toggleAllStatus(service, true)"
+      class="toggle-all">
+
+      Start all
+    </div>
   </div>
   <div>
     <div

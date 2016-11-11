@@ -45,9 +45,10 @@
   </pgp-sidebar>
 
   <div class="dashboard__content">
-    <pgp-nodes
+    <pgp-services
       [nodes]="clusterNodeFilteredSubscription | async"
-      (statusChange)="updateStatus($event)">
-    </pgp-nodes>
+      (statusChange)="updateStatus($event)"
+      (statusAllChange)="updateAllStatus($event)">
+    </pgp-services>
   </div>
 </div>

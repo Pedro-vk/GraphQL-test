@@ -23,6 +23,22 @@ $services__node-status-circle---size: 8px;
     margin-bottom: 10px;
     border-bottom: 1px solid get-color(n3);
 
+    .toggle-all {
+      transition: all .26s ease;
+      display: inline-block;
+      float: right;
+      font-size: 16px;
+      line-height: 30px;
+      padding: 0 6px;
+      cursor: pointer;
+      color: get-color(n8);
+      margin-left: 10px;
+
+      &:hover {
+        color: get-color(n7);
+      }
+    }
+
     &:before {
       @include font-icon;
 
@@ -77,9 +93,12 @@ $services__node-status-circle---size: 8px;
     .info {
       @include font-family(monospace);
 
-      margin-right: 2px;
+      margin: 0 4px;
       color: get-color(n6);
 
+      &:last-child {
+        margin-right: 0;
+      }
       &:before {
         @include font-icon;
 
@@ -97,6 +116,8 @@ $services__node-status-circle---size: 8px;
     }
 
     .name {
+      @include font-family(monospace);
+
       color: get-color(n10);
       display: inline-block;
       padding: 0 8px;

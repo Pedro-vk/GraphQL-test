@@ -1,9 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
+import { Observable, Subject } from 'rxjs';
+
 import { ClusterNode, Status, StatusStatus, Tag } from '../shared/interfaces';
 import { queries, AttributeCounter } from '../shared';
 import { ClusterService } from '../shared/services';
-import { Observable, Subject } from 'rxjs';
+import { ToggleAllService } from './services';
 
 @Component({
   selector: 'pgp-dashboard',
@@ -64,6 +66,14 @@ export class DashboardComponent implements OnInit {
       case 'STOPPED': newStatus = 'STARTED'; break;
     }
     this.clusterService.updateStatus(status.id, newStatus);
+  }
+
+  updateAllStatus (bulkStatus: ToggleAllService): void {
+    bulkStatus.service.statuses
+      .filter((status: Status) => status.status !== bulkStatus.status)
+      .forEach((status: Status) => {
+        this.clusterService.updateStatus(status.id, bulkStatus.status);
+      });
   }
 
   private getAllTags(): void {

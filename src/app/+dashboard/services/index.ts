@@ -1,1 +1,1 @@
-export { ServicesComponent } from './services.component';
+export { ServicesComponent, ToggleAllService } from './services.component';
