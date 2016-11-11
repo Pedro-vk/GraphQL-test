@@ -13,8 +13,11 @@ export class SidebarComponent implements AfterViewInit {
   @Input() filterName: any = {};
   @Input() orderBy: string;
   @Input() orderByList: string[] = [];
+  @Input() viewBy: string;
+  @Input() viewByList: string[] = [];
   @Output() appliedFiltersChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() orderByChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output() viewByChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() searchChange: EventEmitter<any> = new EventEmitter<any>();
   appliedFilters: any = {};
   private _filters: any[] = [];
@@ -24,6 +27,7 @@ export class SidebarComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.onChangeFilter();
     this.orderByChange.emit(this.orderBy);
+    this.viewByChange.emit(this.viewBy);
     this.searchChange.emit('');
   }
 

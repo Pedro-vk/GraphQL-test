@@ -38,14 +38,26 @@
       'memory',
       'location'
     ]"
+    [viewByList]="[
+      'node',
+      'service'
+    ]"
     orderBy="name"
+    viewBy="node"
+    (viewByChange)="changeViewBy($event)"
     (searchChange)="searchFilter.next($event)"
     (orderByChange)="orderByFilter.next($event)"
     (appliedFiltersChange)="attributeFilter.next($event)">
   </pgp-sidebar>
 
   <div class="dashboard__content">
+    <pgp-nodes
+      *ngIf="(viewBy | async) === 'node'"
+      [nodes]="clusterNodeFilteredSubscription | async"
+      (statusChange)="updateStatus($event)">
+    </pgp-nodes>
     <pgp-services
+      *ngIf="(viewBy | async) === 'service'"
       [nodes]="clusterNodeFilteredSubscription | async"
       (statusChange)="updateStatus($event)"
       (statusAllChange)="updateAllStatus($event)">

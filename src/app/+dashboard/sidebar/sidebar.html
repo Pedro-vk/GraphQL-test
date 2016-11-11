@@ -6,6 +6,33 @@
     ngModel=""
     (ngModelChange)="searchChange.emit($event)">
 </div>
+
+<div class="title">
+  View by
+</div>
+<div class="attributes">
+  <div
+    class="attribute attribute--order"
+    *ngFor="let attr of viewByList; let i = index">
+
+    <label
+      class="checkbox"
+      (click)="viewBy = attr; viewByChange.emit(attr)">
+
+      <span
+        class="checkbox-element checkbox-element--circle"
+        [ngClass]="{
+          'checkbox-element--selected': viewBy === attr
+        }">
+      </span>
+
+      <span class="label label-view-by label-view-by--{{attr}}">
+        {{attr}}
+      </span>
+    </label>
+  </div>
+</div>
+
 <div class="title">
   Order by
 </div>
@@ -31,6 +58,7 @@
     </label>
   </div>
 </div>
+
 <div class="title">
   Filter
 </div>

@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   projectAuthor: string = '';
   projectVersion: string = '';
   githubRepositoryUrl: string = '';
+  viewBy: Subject<any> = new Subject<string>();
   orderByFilter: Subject<any> = new Subject<string>();
   attributeFilter: Subject<any> = new Subject<any>();
   searchFilter: Subject<any> = new Subject<string>();
@@ -76,6 +77,11 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  changeViewBy(value: string): void {
+    this.viewBy.next(value);
+    setTimeout(() => this.viewBy.next(value), 10);
+  }
+
   private getAllTags(): void {
     this.clusterService
       .getAllTags()
@@ -91,7 +97,7 @@ export class DashboardComponent implements OnInit {
     this.clusterNodeFilteredSubscription =
       this.clusterNodeSubscription
         .combineLatest(
-          this.attributeFilter, this.orderByFilter, this.searchFilter,
+          this.attributeFilter, this.orderByFilter, this.searchFilter, this.viewBy,
           this.filterNodesWithAttributes
         )
         .share();

@@ -88,7 +88,8 @@ $dashboard__header---height: 72px;
       }
     }
 
-    /deep/ .filter-service {
+    /deep/ .filter-service,
+    /deep/ .label-view-by {
       &:before {
         @include font-icon;
 
@@ -100,6 +101,9 @@ $dashboard__header---height: 72px;
         color: get-color(n8);
         box-shadow: 0 -1px 1px get-color(n0);
       }
+    }
+
+    /deep/ .filter-service {
       &-cassandra:before {
         @include font-icon-cassandra;
       }
@@ -114,6 +118,22 @@ $dashboard__header---height: 72px;
       }
       &-mongodb:before {
         @include font-icon-mongodb;
+      }
+    }
+
+    /deep/ .label-view-by {
+      padding-left: 2px;
+
+      &:before {
+        color: get-color(n7);
+        top: 0;
+        font-size: 1.1em;
+      }
+      &--node:before {
+        @include font-icon-pc;
+      }
+      &--service:before {
+        @include font-icon-puzzle;
       }
     }
   }

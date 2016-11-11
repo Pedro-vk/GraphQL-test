@@ -7,9 +7,11 @@ $services__node-status-circle---size: 8px;
 
   border-radius: 2px;
   background: get-color(n0);
-  display: block;
-  margin: 10px;
-  margin-bottom: 20px;
+  margin: 10px auto 20px;
+  padding: 0 10px;
+  display: table;
+  width: 100%;
+  max-width: 600px;
 
   &:last-child {
     margin-bottom: 0;
@@ -78,6 +80,7 @@ $services__node-status-circle---size: 8px;
       content: '';
       display: inline-block;
       margin-right: 4px;
+      margin-left: 2px;
       position: relative;
       top: -1px;
       border-radius: $services__node-status-circle---size / 2;
