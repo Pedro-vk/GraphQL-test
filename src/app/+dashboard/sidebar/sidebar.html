@@ -13,7 +13,7 @@
 <div class="attributes">
   <div
     class="attribute attribute--order"
-    *ngFor="let attr of viewByList; let i = index">
+    *ngFor="let attr of viewByList; let i = index; trackBy: trackAttr">
 
     <label
       class="checkbox"
@@ -39,7 +39,7 @@
 <div class="attributes">
   <div
     class="attribute attribute--order"
-    *ngFor="let attr of orderByList; let i = index">
+    *ngFor="let attr of orderByList; let i = index; trackBy: trackAttr">
 
     <label
       class="checkbox"
@@ -62,14 +62,14 @@
 <div class="title">
   Filter
 </div>
-<div *ngFor="let filter of filters; let i = index">
+<div *ngFor="let filter of filters; let i = index; trackBy: trackFilter">
   <div class="filter">
     {{filterName[filter.key] || filter.key}}
   </div>
   <div class="attributes">
     <div
       class="attribute"
-      *ngFor="let attr of filter.value | pgpKeys | pgpOrderByOnSidebar : 'key'; let i = index">
+      *ngFor="let attr of filter.value | pgpKeys | pgpOrderByOnSidebar : 'key'; let i = index; trackBy: trackAttr">
 
       <label class="checkbox">
         <input

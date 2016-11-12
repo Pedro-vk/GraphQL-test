@@ -44,6 +44,13 @@ export class SidebarComponent implements AfterViewInit {
     this.appliedFiltersChange.emit(this.appliedFilters);
   }
 
+  trackAttr(attr: string): string {
+    return attr;
+  }
+  trackFilter(filter: any): string {
+    return `filter[${filter}]`;
+  }
+
   private setAppliedFilters(filters: any[]): void {
     if (!filters || filters.length === 0) {
       return;
