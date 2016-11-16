@@ -60,6 +60,12 @@ export class ClusterService {
     this.apollo.mutate({
       mutation: queries.updateStatus,
       variables: queries.updateStatus.variables(statusId, status),
+      optimisticResponse: {
+        updateStatus: <Status>{
+          id: statusId,
+          status: status,
+        },
+      },
     });
   }
 
