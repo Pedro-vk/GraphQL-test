@@ -42,7 +42,6 @@
     "curly": false,
     "forin": true,
     "label-position": true,
-    "label-undefined": true,
     "no-arg": true,
     "no-bitwise": true,
     "no-conditional-assignment": true,
@@ -56,7 +55,6 @@
     ],
     "no-construct": true,
     "no-debugger": true,
-    "no-duplicate-key": true,
     "no-duplicate-variable": true,
     "no-empty": false,
     "no-eval": true,
@@ -64,9 +62,7 @@
     "no-shadowed-variable": true,
     "no-string-literal": true,
     "no-switch-case-fall-through": true,
-    "no-unreachable": true,
     "no-unused-expression": true,
-    "no-unused-variable": false,
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "radix": true,
@@ -75,11 +71,6 @@
       true,
       "allow-null-check"
     ],
-    "use-strict": [
-      true,
-      "check-module"
-    ],
-
     "eofline": true,
     "indent": [
       true,
@@ -109,7 +100,6 @@
     "interface-name": false,
     "jsdoc-format": true,
     "no-consecutive-blank-lines": false,
-    "no-constructor-vars": false,
     "one-line": [
       true,
       "check-open-brace",
@@ -139,19 +129,15 @@
       "check-type"
     ],
     // Codelyzer rules
-    "directive-selector-name": [true, "camelCase"],
-    "component-selector-name": [true, "kebab-case"],
-    "directive-selector-type": [true, "attribute"],
-    "component-selector-type": [true, "element"],
-    "directive-selector-prefix": [true, "pgp"],
-    "component-selector-prefix": [true, "pgp"],
+    "directive-selector": [true, "attribute", "pgp", "camelCase"],
+    "component-selector": [true, "element", "pgp", "kebab-case"],
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,
     "use-host-property-decorator": true,
     "no-attribute-parameter-decorator": true,
     "no-input-rename": true,
     "no-output-rename": true,
-    "no-forward-ref" :true,
+    "no-forward-ref" : true,
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "pipe-naming": [true, "camelCase", "pgp"],
