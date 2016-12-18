@@ -12,7 +12,6 @@ import { GraphCoolObject, pipes, services }  from './shared';
 const client = new ApolloClient({
   networkInterface: createNetworkInterface('https://api.graph.cool/simple/v1/ciu5o9tpz0jg101483bjlp75g'),
   dataIdFromObject: (_: GraphCoolObject): any => _.id,
-  shouldBatch: true,
 });
 
 export const imports = [

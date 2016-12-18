@@ -41,10 +41,10 @@ export class ClusterService {
   getAllTags(): Promise<Tag[]> {
     return new Promise((resolve, reject) => {
       this.apollo
-        .query({
+        .watchQuery(<any>{
           query: queries.getAllTags,
         })
-        .then((response: any) => {
+        .subscribe((response: any) => {
           let tags = response.data.tags;
           resolve(tags);
         });
@@ -70,7 +70,7 @@ export class ClusterService {
   }
 
   private initNodesPolling(): void {
-    this.nodesPolling = this.apollo.watchQuery({
+    this.nodesPolling = this.apollo.watchQuery(<any>{
         query: queries.getAllNodes,
         pollInterval: 30 * 1000,
       });
@@ -83,7 +83,7 @@ export class ClusterService {
   }
 
   private initStatusPolling(): void {
-    this.statusPolling = this.apollo.watchQuery({
+    this.statusPolling = this.apollo.watchQuery(<any>{
       query: queries.getAllStatus,
       pollInterval: 5 * 1000,
     });

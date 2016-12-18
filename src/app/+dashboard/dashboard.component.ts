@@ -101,7 +101,7 @@ export class DashboardComponent implements OnInit {
       this.clusterNodeSubscription
         .combineLatest(
           this.attributeFilter, this.orderByFilter, this.searchFilter, this.viewBy,
-          this.filterNodesWithAttributes
+          this.filterNodesWithAttributes,
         )
         .share();
   }
