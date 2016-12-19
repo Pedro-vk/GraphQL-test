@@ -47,8 +47,11 @@
     font-size: 18px;
     margin-top: 20px;
     font-weight: normal;
-    text-transform: capitalize;
     color: get-color(n8);
+
+    &:first-letter {
+      text-transform: capitalize;
+    }
   }
   .attributes {
     padding-top: 5px;

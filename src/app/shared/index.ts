@@ -24,6 +24,7 @@ export const pipes = [
 export { queries } from './queries';
 
 export { AttributeCounter } from './attribute-counter';
+export { parseFilterName } from './parse-filter-name';
 
 import {
   ClusterService,

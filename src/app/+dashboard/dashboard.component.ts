@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { onShowAnimation } from './dashboard.animations';
 
 import { ClusterNode, Status, StatusStatus, Tag } from '../shared/interfaces';
-import { queries, AttributeCounter } from '../shared';
+import { queries, AttributeCounter, parseFilterName } from '../shared';
 import { ClusterService } from '../shared/services';
 import { ToggleAllService } from './services';
 
@@ -45,8 +45,11 @@ export class DashboardComponent implements OnInit {
       if (filter === 'tags' && self.tags && self.tags[attribute]) {
         return `filter-tags filter-tags-${self.tags[attribute].colornumber}`;
       }
-      if (filter === 'statuses') {
+      if (filter === 'services') {
         return `filter-service filter-service-${attribute.toLowerCase()}`;
+      }
+      if (filter === 'statuses') {
+        return `filter-status filter-status-${attribute.toLowerCase()}`;
       }
     };
   }
@@ -115,7 +118,8 @@ export class DashboardComponent implements OnInit {
       .filter(simpleAttributeFilter('memory'))
       .filter(simpleAttributeFilter('location'))
       .filter(arrayAttributeFilter('tags', (_: Tag) => _.name))
-      .filter(arrayAttributeFilter('statuses', (_: Status) => _.service.name))
+      .filter(arrayAttributeFilter('statuses@services', (_: Status) => _.service.name))
+      .filter(arrayAttributeFilter('statuses', (_: Status) => _.status.toLowerCase()))
       .filter(searchInAttributes(search, ['name', 'location', 'localIp']))
       .sort((a: ClusterNode, b: ClusterNode) => a[orderBy] > b[orderBy] ? 1 : -1);
 
@@ -141,14 +145,16 @@ export class DashboardComponent implements OnInit {
         return filter[attr][item[attr]];
       };
     }
-    function arrayAttributeFilter(attr: string, filterFn: (_: any) => string): (item: any) => boolean {
+    function arrayAttributeFilter(attrName: string, filterFn: (_: any) => string): (item: any) => boolean {
+      let name: string = parseFilterName(attrName).name;
+      let attr: string = parseFilterName(attrName).attr;
       return (item: any): boolean => {
-        if (filter[attr] && getValues(filter[attr]).indexOf(true) === -1) {
+        if (filter[name] && getValues(filter[name]).indexOf(true) === -1) {
           return true;
         }
         let itemElements = item[attr].map(filterFn);
-        let filterElements = Object.keys(filter[attr])
-          .filter((_: any) => filter[attr][_]);
+        let filterElements = Object.keys(filter[name])
+          .filter((_: any) => filter[name][_]);
 
         return filterElements
           .map((_: string) => itemElements.indexOf(_) !== -1)
@@ -164,10 +170,14 @@ export class DashboardComponent implements OnInit {
     const simple = ['cores', 'memory', 'location'];
     const arrays = {
       'tags': (_: Tag) => _.name,
-      'statuses': (_: Status) => _.service.name,
+      'statuses@services': (_: Status) => _.service.name,
+      'statuses': (_: Status) => _.status.toLowerCase(),
+    };
+    const defaultValues = {
+      'statuses': ['started', 'waiting', 'stopped'],
     };
 
-    const attributeCounter = new AttributeCounter<any>(simple, arrays)
+    const attributeCounter = new AttributeCounter<any>(simple, arrays, defaultValues)
       .counterFrom(this.clusterNodeSubscription);
     const attributeCounterFiltered = new AttributeCounter<any>(simple, arrays)
       .counterFrom(this.clusterNodeFilteredSubscription);
@@ -190,7 +200,7 @@ export class DashboardComponent implements OnInit {
     }
 
     function counterToArrayAndSort(counter: any): any[] {
-      const filterOrder = ['statuses', 'location', 'tags'].reverse();
+      const filterOrder = ['services', 'statuses', 'location', 'tags'].reverse();
       return Object.keys(counter)
         .map((key: string) => ({key, value: counter[key]}))
         .sort((a: any, b: any) => {

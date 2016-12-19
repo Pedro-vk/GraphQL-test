@@ -71,6 +71,10 @@ $dashboard__sidebar---width: 240px;
     border-right: 1px solid get-color(n2);
     overflow: auto;
 
+    /deep/ .filter-status {
+      text-transform: capitalize;
+    }
+    /deep/ .filter-status:before,
     /deep/ .filter-tags:before {
       $size: 8px;
 
@@ -83,6 +87,11 @@ $dashboard__sidebar---width: 240px;
       box-shadow: 0 1px 2px get-color(n2);
     }
 
+    @each $status in $services-palette {
+      /deep/ .filter-status-#{to-lower-case(nth($status, 1))}:before {
+        background: nth($status, 2);
+      }
+    }
     @for $i from 0 through (length($tags-palette) - 1) {
       /deep/ .filter-tags-#{$i}:before {
         background: nth($tags-palette, ($i + 1));
