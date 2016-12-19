@@ -4,15 +4,27 @@ import { FormsModule }   from '@angular/forms';
 
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { ApolloModule } from 'angular2-apollo';
+import { Client } from 'subscriptions-transport-ws';
 
 import { AppComponent }  from './app.component';
 import { appComponents } from './';
-import { GraphCoolObject, pipes, services }  from './shared';
+import { GraphCoolObject, pipes, services, addGraphQLSubscriptions }  from './shared';
+
+
+const wsClient = new Client('ws://subscriptions.graph.cool/ciu5o9tpz0jg101483bjlp75g');
+const networkInterface = createNetworkInterface({
+  uri: 'https://api.graph.cool/simple/v1/ciu5o9tpz0jg101483bjlp75g',
+  // batchInterval: 20,
+});
+
+const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
+  networkInterface,
+  wsClient,
+);
 
 const client = new ApolloClient({
-  networkInterface: createNetworkInterface('https://api.graph.cool/simple/v1/ciu5o9tpz0jg101483bjlp75g'),
+  networkInterface: networkInterfaceWithSubscriptions,
   dataIdFromObject: (_: GraphCoolObject): any => _.id,
-  shouldBatch: true,
 });
 
 export const imports = [

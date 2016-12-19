@@ -94,12 +94,21 @@ const updateStatus = gql`
       id: $statusId,
       status: $status) {
 
-      id,
+      id
       status
     }
   }
 `;
 updateStatus.variables = (statusId: String, status: String): any => ({statusId, status});
+
+const onUpdateStatus = gql`
+  subscription onUpdateStatus{
+    updateStatus {
+      id
+      status
+    }
+  }
+`;
 
 export const queries = {
   getAllNodes,
@@ -108,4 +117,5 @@ export const queries = {
   getAllStatus,
   createStatus,
   updateStatus,
+  onUpdateStatus,
 };

@@ -11,7 +11,7 @@ import { getClusterState } from '../../../hmr';
 export class ClusterService {
   private clusterNodeLastValue: ClusterNode[] = getClusterState();
   private nodesPolling: ApolloQueryObservable<ApolloQueryResult>;
-  private statusPolling: ApolloQueryObservable<ApolloQueryResult>;
+  private statusSubscription: Observable<ApolloQueryResult>;
   private clusterNodeSubscription: Subject<ClusterNode[]> = new Subject<ClusterNode[]>();
   private clusterNodeObservable: Observable<ClusterNode[]> = this.clusterNodeSubscription.share<ClusterNode[]>();
 
@@ -22,7 +22,7 @@ export class ClusterService {
 
   destroy(): void {
     this.nodesPolling.stopPolling();
-    this.statusPolling.stopPolling();
+    // this.statusPolling.stopPolling();
   }
 
   getClusterNodeLastValue(): ClusterNode[] {
@@ -41,11 +41,11 @@ export class ClusterService {
   getAllTags(): Promise<Tag[]> {
     return new Promise((resolve, reject) => {
       this.apollo
-        .query({
+        .watchQuery({
           query: queries.getAllTags,
         })
-        .then((response: any) => {
-          let tags = response.data.tags;
+        .subscribe((_: ApolloQueryResult) => {
+          let tags = _.data.tags;
           resolve(tags);
         });
     });
@@ -83,11 +83,10 @@ export class ClusterService {
   }
 
   private initStatusPolling(): void {
-    this.statusPolling = this.apollo.watchQuery({
-      query: queries.getAllStatus,
-      pollInterval: 5 * 1000,
-    });
-    this.statusPolling
-      .subscribe(_ => {});
+    let statusSubscription = this.apollo.subscribe({
+      query: queries.onUpdateStatus,
+      variables: {},
+    })
+      .subscribe();
   }
 }

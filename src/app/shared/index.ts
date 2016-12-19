@@ -34,3 +34,5 @@ import * as Services from './services';
 export const services = [
   ClusterService,
 ];
+
+export { addGraphQLSubscriptions } from './graphql-subscriptions';
