@@ -2,6 +2,8 @@
 @import './cube';
 
 $cluster__location---separation: 60px !default;
+$cluster__location---height: 28px !default;
+$cluster__location---shadow-color: rgba(0, 0, 0, .45) !default;
 
 @mixin cluster() {
   .cluster-container {
@@ -23,7 +25,7 @@ $cluster__location---separation: 60px !default;
     max-width: 860px;
     font-size: 0;
     margin: auto;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 
     &__location {
       display: inline-block;
@@ -32,12 +34,13 @@ $cluster__location---separation: 60px !default;
       bottom: 100%;
       background: get-color(n4);
       color: get-color(n0);
-      font-size: 18px;
-      height: 24px;
-      line-height: 24px;
-      padding: 0 12px;
-      transform: rotateX(-90deg) translateY(-$cluster__location---separation);
+      font-size: 20px;
+      height: $cluster__location---height;
+      line-height: $cluster__location---height - 2px;
+      padding: 0 26px;
+      transform: rotateX(-90deg) translateY(-$cluster__location---separation) scaleX(1.2);
       transform-origin: 0 100%;
+      text-shadow: 0 -1px 1px $cluster__location---shadow-color;
 
       &:before {
         content: '';
@@ -46,7 +49,7 @@ $cluster__location---separation: 60px !default;
         left: 0;
         width: 1px;
         background: get-color(n6);
-        height: 24px + $cluster__location---separation;
+        height: $cluster__location---height + $cluster__location---separation;
       }
     }
   }
