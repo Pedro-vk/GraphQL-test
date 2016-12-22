@@ -40,7 +40,8 @@
     ]"
     [viewByList]="[
       'node',
-      'service'
+      'service',
+      'cluster'
     ]"
     orderBy="name"
     viewBy="node"
@@ -70,5 +71,15 @@
       (statusChange)="updateStatus($event)"
       (statusAllChange)="updateAllStatus($event)">
     </pgp-services>
+  </div>
+  <div
+    [@onShowAnimation]="'in'"
+    *ngIf="(viewBy | async) === 'cluster'"
+    class="dashboard__content">
+
+    <pgp-cluster
+      [nodes]="clusterNodeFilteredSubscription | async"
+      (statusChange)="updateStatus($event)">
+    </pgp-cluster>
   </div>
 </div>

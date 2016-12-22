@@ -1,0 +1,19 @@
+@import '../../../../style/index';
+@import '../cube';
+
+@mixin block() {
+  .block {
+    @include cube(20px);
+
+    color: get-color(n6);
+    height: 80px;
+    width: 80px;
+    display: inline-block;
+    margin: 20px;
+  }
+}
+
+:host {
+  @include component;
+  @include block;
+}

@@ -1,0 +1,21 @@
+<div class="cluster-container">
+  <div
+    class="cluster"
+    *ngFor="let cluster of clusters; let i = index; trackBy: trackCluster">
+
+    <div class="cluster__shadow"></div>
+    <div class="cluster__side"></div>
+    <div class="cluster__side-right"></div>
+    <div class="cluster__side-left"></div>
+
+    <div class="cluster__location">
+      {{cluster.location}}
+    </div>
+
+    <pgp-block
+      [details]="node"
+      (statusChange)="toggleStatus($event)"
+      *ngFor="let node of cluster.clusternodes; let i = index; trackBy: trackNode">
+    </pgp-block>
+  </div>
+</div>

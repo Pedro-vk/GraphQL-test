@@ -144,6 +144,9 @@ $dashboard__sidebar---width: 240px;
       &--service:before {
         @include font-icon-puzzle;
       }
+      &--cluster:before {
+        @include font-icon-nodes;
+      }
     }
   }
 

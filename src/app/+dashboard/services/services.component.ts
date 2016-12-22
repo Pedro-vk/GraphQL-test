@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
-import { queries, ClusterNode, Status, StatusStatus, Service, GraphCoolObject } from '../../shared';
+import { ClusterNode, Status, StatusStatus, Service, GraphCoolObject } from '../../shared';
 
 export interface ToggleAllService {
   service: Service;

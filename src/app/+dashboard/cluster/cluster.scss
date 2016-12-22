@@ -1,0 +1,58 @@
+@import '../../../style/index';
+@import './cube';
+
+$cluster__location---separation: 60px !default;
+
+@mixin cluster() {
+  .cluster-container {
+    transform-style: preserve-3d;
+    transform-origin: 50% 100%;
+    transform: translateX(-50%) perspective(600px) rotateX(30deg) rotateZ(0deg);
+    min-height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 100%;
+  }
+  .cluster {
+    @include cube();
+
+    color: get-color(n3);
+    padding: 10px;
+    text-align: left;
+    max-width: 860px;
+    font-size: 0;
+    margin: auto;
+    margin-bottom: 40px;
+
+    &__location {
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      bottom: 100%;
+      background: get-color(n4);
+      color: get-color(n0);
+      font-size: 18px;
+      height: 24px;
+      line-height: 24px;
+      padding: 0 12px;
+      transform: rotateX(-90deg) translateY(-$cluster__location---separation);
+      transform-origin: 0 100%;
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1px;
+        background: get-color(n6);
+        height: 24px + $cluster__location---separation;
+      }
+    }
+  }
+}
+
+:host {
+  @include component;
+  @include cluster;
+}
