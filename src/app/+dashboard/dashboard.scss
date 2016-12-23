@@ -75,6 +75,7 @@ $dashboard__sidebar---width: 240px;
       text-transform: capitalize;
     }
     /deep/ .filter-status:before,
+    /deep/ .filter-service:after,
     /deep/ .filter-tags:before {
       $size: 8px;
 
@@ -85,6 +86,10 @@ $dashboard__sidebar---width: 240px;
       border-radius: $size / 2;
       display: inline-block;
       box-shadow: 0 1px 2px get-color(n2);
+    }
+    /deep/ .filter-service:after {
+      margin-left: 2px;
+      border-radius: 2px;
     }
 
     @each $status in $status-palette {
@@ -128,6 +133,12 @@ $dashboard__sidebar---width: 240px;
       }
       &-mongodb:before {
         @include font-icon-mongodb;
+      }
+    }
+
+    @each $service, $color in $services-palette {
+      /deep/ .filter-service-#{$service}:after {
+        background: $color;
       }
     }
 
