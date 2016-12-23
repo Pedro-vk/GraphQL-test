@@ -96,7 +96,7 @@
       cursor: pointer;
     }
 
-    @each $status, $color in $services-palette {
+    @each $status, $color in $status-palette {
       .service-#{$status} {
         background: $color;
       }

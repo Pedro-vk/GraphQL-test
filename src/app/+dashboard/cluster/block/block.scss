@@ -9,6 +9,23 @@
     width: 80px;
     display: inline-block;
     margin: 20px;
+    font-size: 0;
+  }
+  .block-service {
+    @include cube(get-color(n4), 10px);
+
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 5px;
+
+  }
+  @each $service, $color in $services-palette {
+    .block-service--service-#{$service},
+    .block-service--service-#{$service} .block-service {
+      @include cube-color($color);
+    }
   }
 }
 

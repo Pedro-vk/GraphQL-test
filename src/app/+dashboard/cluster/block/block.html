@@ -3,4 +3,20 @@
   <div class="block__side"></div>
   <div class="block__side-right"></div>
   <div class="block__side-left"></div>
+
+  <div
+    (click)="toggleStatus(status)"
+    *ngFor="let status of details.statuses; let i = index; trackBy: trackById"
+    class="
+      block-service
+      block-service--{{status.status}}
+      block-service--service-{{status.service.name.toLowerCase()}}
+    ">
+
+    <div class="block-service__shadow"></div>
+    <div class="block-service__side"></div>
+    <div class="block-service__side-right"></div>
+    <div class="block-service__side-left"></div>
+  </div>
+
 </div>

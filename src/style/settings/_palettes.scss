@@ -11,8 +11,16 @@ $tags-palette: (
   #cf5f3b,
 );
 
-$services-palette: (
+$status-palette: (
   STARTED: #88b060,
   WAITING: #ff8900,
   STOPPED: #e23b2b,
+);
+
+$services-palette: (
+  mongodb: #725f3c,
+  mesos: #3068b2,
+  hdfs: #fff359,
+  docker: #00bfff,
+  cassandra: #b7fff0,
 );

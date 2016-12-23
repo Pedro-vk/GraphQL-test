@@ -95,7 +95,7 @@ $services--big---max-width: 760px;
       height: $services__node-status-circle---size;
       width: $services__node-status-circle---size;
     }
-    @each $status, $color in $services-palette {
+    @each $status, $color in $status-palette {
       &--#{$status}:before {
         background: $color;
       }

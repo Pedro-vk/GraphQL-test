@@ -87,7 +87,7 @@ $dashboard__sidebar---width: 240px;
       box-shadow: 0 1px 2px get-color(n2);
     }
 
-    @each $status in $services-palette {
+    @each $status in $status-palette {
       /deep/ .filter-status-#{to-lower-case(nth($status, 1))}:before {
         background: nth($status, 2);
       }
