@@ -1,7 +1,7 @@
 @import '../../../style/index';
 
-@mixin cube-color($base-color) {
-  $color: rgba($base-color, .9);
+@mixin cube-color($base-color, $opacity: .9) {
+  $color: rgba($base-color, $opacity);
 
   &,
   &__side,
@@ -40,6 +40,13 @@
   position: relative;
   transform-style: preserve-3d;
 
+  &,
+  &__side,
+  &__side-left,
+  &__side-right,
+  &__shadow {
+    transition: all .2s ease;
+  }
   &__shadow {
     position: absolute;
     top: 0;

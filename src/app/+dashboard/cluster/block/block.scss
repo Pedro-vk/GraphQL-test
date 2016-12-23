@@ -10,6 +10,14 @@
     display: inline-block;
     margin: 20px;
     font-size: 0;
+
+    &__name {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      font-size: 14px;
+      color: get-color(n0);
+    }
   }
   .block-service {
     @include cube(get-color(n4), 10px);
@@ -19,6 +27,7 @@
     display: inline-block;
     margin-top: 5px;
     margin-left: 5px;
+    cursor: pointer;
 
     &:before {
       @include font-icon;
@@ -55,6 +64,16 @@
     .block-service--service-#{$service},
     .block-service--service-#{$service} .block-service {
       @include cube-color($color);
+    }
+    .block-service--waiting.block-service--service-#{$service},
+    .block-service--waiting.block-service--service-#{$service} .block-service {
+      @include cube-color($color, .7);
+      @include cube-size(6px);
+    }
+    .block-service--stopped.block-service--service-#{$service},
+    .block-service--stopped.block-service--service-#{$service} .block-service {
+      @include cube-color(get-color(n4), .7);
+      @include cube-size(4px);
     }
   }
 }
