@@ -3,9 +3,8 @@
 
 @mixin block() {
   .block {
-    @include cube(20px);
+    @include cube(get-color(n6), 20px);
 
-    color: get-color(n6);
     height: 80px;
     width: 80px;
     display: inline-block;

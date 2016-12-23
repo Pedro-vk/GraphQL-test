@@ -23,9 +23,8 @@ $cluster__location---shadow-color: rgba(0, 0, 0, .45) !default;
     transition: transform .2s ease;
   }
   .cluster {
-    @include cube();
+    @include cube(get-color(n3));
 
-    color: get-color(n3);
     padding: 10px;
     text-align: left;
     max-width: 860px;
