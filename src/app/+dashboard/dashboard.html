@@ -39,12 +39,12 @@
       'location'
     ]"
     [viewByList]="[
+      'cluster',
       'node',
-      'service',
-      'cluster'
+      'service'
     ]"
     orderBy="name"
-    viewBy="node"
+    viewBy="cluster"
     (viewByChange)="changeViewBy($event)"
     (searchChange)="searchFilter.next($event)"
     (orderByChange)="orderByFilter.next($event)"

@@ -103,7 +103,7 @@ export class ClusterComponent implements OnInit {
         let clusterHeight = this.container.nativeElement.offsetHeight;
         let availableTranslate = clusterHeight - visibleHeight;
 
-        translateValue += drag * 2;
+        translateValue += drag * 2.5;
         if (translateValue > availableTranslate) {
           translateValue = availableTranslate;
         }
