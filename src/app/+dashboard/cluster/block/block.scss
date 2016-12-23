@@ -20,6 +20,36 @@
     margin-top: 5px;
     margin-left: 5px;
 
+    &:before {
+      @include font-icon;
+
+      position: absolute;
+      display: block;
+      top: 0;
+      width: 100%;
+      bottom: 0;
+      font-size: 16px;
+      text-align: center;
+      line-height: 19px;
+      color: get-color(n9);
+    }
+    &--service {
+      &-cassandra:before {
+        @include font-icon-cassandra;
+      }
+      &-docker:before {
+        @include font-icon-docker;
+      }
+      &-hdfs:before {
+        @include font-icon-hdfs;
+      }
+      &-mesos:before {
+        @include font-icon-mesos;
+      }
+      &-mongodb:before {
+        @include font-icon-mongodb;
+      }
+    }
   }
   @each $service, $color in $services-palette {
     .block-service--service-#{$service},
