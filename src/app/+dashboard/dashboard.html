@@ -75,7 +75,7 @@
   <div
     [@onShowAnimation]="'in'"
     *ngIf="(viewBy | async) === 'cluster'"
-    class="dashboard__content">
+    class="dashboard__content dashboard__content--no-overflow dashboard__content--no-padding">
 
     <pgp-cluster
       [nodes]="clusterNodeFilteredSubscription | async"

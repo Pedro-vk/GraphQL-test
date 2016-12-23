@@ -1,4 +1,8 @@
-<div class="cluster-container">
+<div
+  #container
+  class="cluster-container"
+  [style.transform]="transformStyle | async">
+
   <div
     class="cluster"
     *ngFor="let cluster of clusters; let i = index; trackBy: trackCluster">

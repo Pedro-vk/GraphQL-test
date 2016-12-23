@@ -6,15 +6,21 @@ $cluster__location---height: 28px !default;
 $cluster__location---shadow-color: rgba(0, 0, 0, .45) !default;
 
 @mixin cluster() {
+  height: 100%;
+  display: block;
+  cursor: move;
+  padding: 20px;
+
   .cluster-container {
     transform-style: preserve-3d;
     transform-origin: 50% 100%;
-    transform: translateX(-50%) perspective(600px) rotateX(30deg) rotateZ(0deg);
+    transform: translateX(-50%) perspective(600px) rotateX(30deg) translateY(0);
     min-height: 100%;
     position: absolute;
     bottom: 0;
     left: 50%;
     width: 100%;
+    transition: transform .2s ease;
   }
   .cluster {
     @include cube();

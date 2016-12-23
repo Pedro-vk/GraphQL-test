@@ -162,5 +162,12 @@ $dashboard__sidebar---width: 240px;
     bottom: 0;
     right: 0;
     top: 0;
+
+    &--no-overflow {
+      overflow: hidden;
+    }
+    &--no-padding {
+      padding: 0;
+    }
   }
 }
