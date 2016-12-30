@@ -9,10 +9,10 @@ import {
   ViewChild,
   OnInit,
 } from '@angular/core';
-import { DOCUMENT, DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { Observable, Subject } from 'rxjs';
 
-import { ClusterNode, Status, StatusStatus } from '../../shared';
+import { ClusterNode, Status, StatusStatus, DragAndDropService } from '../../shared';
 
 export interface Cluster {
   location: string;
@@ -41,7 +41,7 @@ export class ClusterComponent implements OnInit {
 
   constructor(
     private elementRef: ElementRef,
-    @Inject(DOCUMENT) private document: any,
+    private dragAndDropService: DragAndDropService,
     private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
@@ -86,7 +86,7 @@ export class ClusterComponent implements OnInit {
     let lastClusterChange: number = 0;
     let translateValue: number = 0;
 
-    this.transformStyle = this.getDragAndDropSubscription()
+    this.transformStyle = this.dragAndDropService.getDragAndDropSubscription(this.elementRef)
       .combineLatest<number, any, SafeStyle>(
         this.onClusterChange,
         (drag: number, changes: number) => {
@@ -113,43 +113,6 @@ export class ClusterComponent implements OnInit {
         // console.log(visibleHeight, clusterHeight, drag, translateValue);
         return this.getTransform(translateValue);
       });
-  }
-
-  private getDragAndDropSubscription(): Observable<number> {
-    let dragTarget = this.elementRef.nativeElement;
-
-    let mouseup = Observable.merge(
-      Observable.fromEvent(dragTarget, 'mouseup'),
-      Observable.fromEvent(dragTarget, 'touchend').map(touchToMousePosition),
-    );
-    let mousemove = Observable.merge(
-      Observable.fromEvent(this.document, 'mousemove'),
-      Observable.fromEvent(this.document, 'touchmove').map(touchToMousePosition),
-    );
-    let mousedown = Observable.merge(
-      Observable.fromEvent(dragTarget, 'mousedown'),
-      Observable.fromEvent(dragTarget, 'touchstart').map(touchToMousePosition),
-    );
-
-    return mousedown
-      .flatMap((md: any): Observable<any> => {
-        let lastY: number = md.clientY;
-
-        return mousemove.map((mm: any): number => {
-          mm.preventDefault();
-          let value: number = mm.clientY - lastY;
-          lastY = mm.clientY;
-          return value;
-        }).takeUntil(mouseup);
-      });
-
-    function touchToMousePosition(touchEvent: any): any {
-      if (touchEvent.touches[0]) {
-        touchEvent.clientX = touchEvent.touches[0].clientX;
-        touchEvent.clientY = touchEvent.touches[0].clientY;
-      }
-      return touchEvent;
-    }
   }
 
   private getTransform(translateX: number): SafeStyle {

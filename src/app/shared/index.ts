@@ -28,10 +28,15 @@ export { parseFilterName } from './parse-filter-name';
 
 import {
   ClusterService,
+  DragAndDropService,
 } from './services';
 
-import * as Services from './services';
+export {
+  ClusterService,
+  DragAndDropService,
+};
 
 export const services = [
   ClusterService,
+  DragAndDropService,
 ];
