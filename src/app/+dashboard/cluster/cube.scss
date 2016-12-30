@@ -46,6 +46,7 @@
   &__side-right,
   &__shadow {
     transition: all .2s ease;
+    backface-visibility: hidden;
   }
   &__shadow {
     position: absolute;
