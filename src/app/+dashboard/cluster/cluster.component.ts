@@ -118,9 +118,18 @@ export class ClusterComponent implements OnInit {
   private getDragAndDropSubscription(): Observable<number> {
     let dragTarget = this.elementRef.nativeElement;
 
-    let mouseup   = Observable.fromEvent(dragTarget, 'mouseup');
-    let mousemove = Observable.fromEvent(this.document, 'mousemove');
-    let mousedown = Observable.fromEvent(dragTarget, 'mousedown');
+    let mouseup = Observable.merge(
+      Observable.fromEvent(dragTarget, 'mouseup'),
+      Observable.fromEvent(dragTarget, 'touchend').map(touchToMousePosition),
+    );
+    let mousemove = Observable.merge(
+      Observable.fromEvent(this.document, 'mousemove'),
+      Observable.fromEvent(this.document, 'touchmove').map(touchToMousePosition),
+    );
+    let mousedown = Observable.merge(
+      Observable.fromEvent(dragTarget, 'mousedown'),
+      Observable.fromEvent(dragTarget, 'touchstart').map(touchToMousePosition),
+    );
 
     return mousedown
       .flatMap((md: any): Observable<any> => {
@@ -133,6 +142,14 @@ export class ClusterComponent implements OnInit {
           return value;
         }).takeUntil(mouseup);
       });
+
+    function touchToMousePosition(touchEvent: any): any {
+      if (touchEvent.touches[0]) {
+        touchEvent.clientX = touchEvent.touches[0].clientX;
+        touchEvent.clientY = touchEvent.touches[0].clientY;
+      }
+      return touchEvent;
+    }
   }
 
   private getTransform(translateX: number): SafeStyle {
