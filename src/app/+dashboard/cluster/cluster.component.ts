@@ -87,6 +87,7 @@ export class ClusterComponent implements OnInit {
     let translateValue: number = 0;
 
     this.transformStyle = this.dragAndDropService.getDragAndDropSubscription(this.elementRef)
+      .map((_: any) => _.y)
       .combineLatest<number, any, SafeStyle>(
         this.onClusterChange,
         (drag: number, changes: number) => {
@@ -110,7 +111,6 @@ export class ClusterComponent implements OnInit {
         if (translateValue < 0) {
           translateValue = 0;
         }
-        // console.log(visibleHeight, clusterHeight, drag, translateValue);
         return this.getTransform(translateValue);
       });
   }

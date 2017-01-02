@@ -25,12 +25,17 @@ export class DragAndDropService {
     return mousedown
       .flatMap((md: any): Observable<any> => {
         let lastY: number = md.clientY;
+        let lastX: number = md.clientX;
 
         return mousemove
           .map((mm: any): number => {
             mm.preventDefault();
-            let value: number = mm.clientY - lastY;
+            let value: any = {
+              y: mm.clientY - lastY,
+              x: mm.clientX - lastX,
+            };
             lastY = mm.clientY;
+            lastX = mm.clientX;
             return value;
           })
           .takeUntil(mouseup);
