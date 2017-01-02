@@ -86,8 +86,15 @@ export class ClusterComponent implements OnInit {
     let lastClusterChange: number = 0;
     let translateValue: number = 0;
 
-    this.transformStyle = this.dragAndDropService.getDragAndDropSubscription(this.elementRef)
-      .map((_: any) => _.y)
+    let scroll = this.dragAndDropService
+      .getScrollSubscription(this.elementRef)
+      .map((_: any) => -_.y);
+
+    let dragAndDrop = this.dragAndDropService
+      .getDragAndDropSubscription(this.elementRef)
+      .map((_: any) => _.y);
+
+    this.transformStyle = Observable.merge(scroll, dragAndDrop)
       .combineLatest<number, any, SafeStyle>(
         this.onClusterChange,
         (drag: number, changes: number) => {

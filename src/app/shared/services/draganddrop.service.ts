@@ -6,7 +6,17 @@ import { Observable } from 'rxjs';
 export class DragAndDropService {
   constructor(@Inject(DOCUMENT) private document: any) {}
 
-  getDragAndDropSubscription(elementRef: ElementRef): Observable<number> {
+  getScrollSubscription(elementRef: ElementRef): Observable<any> {
+    let scrollTarget = elementRef.nativeElement;
+
+    return Observable.fromEvent(scrollTarget, 'mousewheel')
+      .map((event: any) => ({
+        x: event.deltaX,
+        y: event.deltaY,
+      }));
+  }
+
+  getDragAndDropSubscription(elementRef: ElementRef): Observable<any> {
     let dragTarget = elementRef.nativeElement;
 
     let mousedown = Observable.merge(
