@@ -29,7 +29,7 @@ export class DragAndDropService {
       Observable.fromEvent(dragTarget, 'touchstart').map(this.touchToMousePosition),
     );
     let mousemove = Observable.merge(
-      Observable.fromEvent(this.document, 'mousemove', this.enablePassive),
+      Observable.fromEvent(this.document, 'mousemove'),
       Observable.fromEvent(this.document, 'touchmove', this.enablePassive).map(this.touchToMousePosition),
     );
     let mouseup = Observable.merge(
@@ -44,9 +44,9 @@ export class DragAndDropService {
 
         return mousemove
           .map((mm: any): number => {
-            if (!this.supportsPassive) {
+            try {
               mm.preventDefault();
-            }
+            } catch (e) {}
             let value: any = {
               y: mm.clientY - lastY,
               x: mm.clientX - lastX,
