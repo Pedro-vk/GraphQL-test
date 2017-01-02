@@ -4,12 +4,17 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class DragAndDropService {
-  constructor(@Inject(DOCUMENT) private document: any) {}
+  private supportsPassive: boolean = false;
+  private enablePassive: any = {passive: true};
+
+  constructor(@Inject(DOCUMENT) private document: any) {
+    this.testSupportedPassiveEvents();
+  }
 
   getScrollSubscription(elementRef: ElementRef): Observable<any> {
     let scrollTarget = elementRef.nativeElement;
 
-    return Observable.fromEvent(scrollTarget, 'mousewheel')
+    return Observable.fromEvent(scrollTarget, 'mousewheel', this.enablePassive)
       .map((event: any) => ({
         x: event.deltaX,
         y: event.deltaY,
@@ -24,8 +29,8 @@ export class DragAndDropService {
       Observable.fromEvent(dragTarget, 'touchstart').map(this.touchToMousePosition),
     );
     let mousemove = Observable.merge(
-      Observable.fromEvent(this.document, 'mousemove'),
-      Observable.fromEvent(this.document, 'touchmove').map(this.touchToMousePosition),
+      Observable.fromEvent(this.document, 'mousemove', this.enablePassive),
+      Observable.fromEvent(this.document, 'touchmove', this.enablePassive).map(this.touchToMousePosition),
     );
     let mouseup = Observable.merge(
       Observable.fromEvent(this.document, 'mouseup'),
@@ -39,7 +44,9 @@ export class DragAndDropService {
 
         return mousemove
           .map((mm: any): number => {
-            mm.preventDefault();
+            if (!this.supportsPassive) {
+              mm.preventDefault();
+            }
             let value: any = {
               y: mm.clientY - lastY,
               x: mm.clientX - lastX,
@@ -59,5 +66,20 @@ export class DragAndDropService {
       touchEvent.clientY = touchEvent.touches[0].clientY;
     }
     return touchEvent;
+  }
+
+  private testSupportedPassiveEvents(): void {
+    try {
+      let options = Object.defineProperty({}, 'passive', {
+        get: (): void => {
+          this.supportsPassive = true;
+        },
+      });
+      this.document.addEventListener('test', undefined, options);
+    } catch (e) {}
+
+    if (!this.supportsPassive) {
+      this.enablePassive = undefined;
+    }
   }
 }
