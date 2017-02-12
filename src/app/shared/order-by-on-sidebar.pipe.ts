@@ -6,7 +6,7 @@ export class OrderByOnSidebarPipe implements PipeTransform {
     if (!value) {
       return [];
     }
-    return value
+    return [...value]
       .sort((a, b) => checkAttr(b) < checkAttr(a) ? 1 : -1);
 
     function checkAttr(_: any): string | number {

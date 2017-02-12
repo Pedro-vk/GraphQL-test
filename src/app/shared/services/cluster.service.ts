@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApolloQueryResult } from 'apollo-client';
-import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
+import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import { Observable, Subject } from 'rxjs';
 
 import { ClusterNode, Status, StatusStatus, Tag } from '../interfaces';
@@ -10,12 +10,12 @@ import { getClusterState } from '../../../hmr';
 @Injectable()
 export class ClusterService {
   private clusterNodeLastValue: ClusterNode[] = getClusterState();
-  private nodesPolling: ApolloQueryObservable<ApolloQueryResult>;
-  private statusPolling: ApolloQueryObservable<ApolloQueryResult>;
+  private nodesPolling: ApolloQueryObservable<{nodes: ClusterNode[]}>;
+  private statusPolling: ApolloQueryObservable<any>;
   private clusterNodeSubscription: Subject<ClusterNode[]> = new Subject<ClusterNode[]>();
   private clusterNodeObservable: Observable<ClusterNode[]> = this.clusterNodeSubscription.share<ClusterNode[]>();
 
-  constructor(private apollo: Angular2Apollo) {
+  constructor(private apollo: Apollo) {
     this.initNodesPolling();
     this.initStatusPolling();
   }
@@ -76,7 +76,7 @@ export class ClusterService {
       });
 
     this.nodesPolling
-      .subscribe((_: ApolloQueryResult) => {
+      .subscribe((_: ApolloQueryResult<{nodes: ClusterNode[]}>) => {
         this.clusterNodeSubscription.next(_.data.nodes);
         this.clusterNodeLastValue = _.data.nodes;
       });
@@ -88,6 +88,6 @@ export class ClusterService {
       pollInterval: 5 * 1000,
     });
     this.statusPolling
-      .subscribe(_ => {});
+      .subscribe();
   }
 }

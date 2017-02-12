@@ -8,7 +8,6 @@ import '@angular/http';
 // RxJS
 import 'rxjs';
 
-// Apollo + Graph QL
-import 'angular2-apollo';
+// Apollo + GraphQL
+import 'apollo-angular';
 import 'apollo-client';
-import 'graphql-tag';

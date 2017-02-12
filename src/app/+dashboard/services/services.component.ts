@@ -49,7 +49,7 @@ export class ServicesComponent {
       .forEach((node: ClusterNode) => {
         node.statuses
           .forEach((status: Status) => {
-            let service = status.service;
+            let service = Object.assign({}, status.service);
             let newNode: ClusterNode = Object.assign({}, node, {statuses: undefined});
             let newStatus: Status = Object.assign({}, status, {
               service: undefined,

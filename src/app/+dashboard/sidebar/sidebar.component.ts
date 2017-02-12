@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
-import { Angular2Apollo } from 'angular2-apollo';
 
 @Component({
   selector: 'pgp-sidebar',
