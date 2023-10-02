@@ -5,6 +5,9 @@ Angular 2 + Apollo Client + RxJS.
 
 ## Run or compile the project
 Serve the project on `http://localhost:8080/` and watch changes.
+
+**Note:** GraphCool ended the service, so this project doesn't have a backend.
+
 ```
 npm start
 ```
@@ -23,4 +26,3 @@ Run TSLint and SASS-Lint.
 ```
 npm lint
 ```
-
